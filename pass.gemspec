@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Hitoshi Kurokawa"]
   s.date = %q{2011-04-12}
-  s.description = %q{TODO: Password Generator for CUI}
+  s.description = %q{Password Generator for CUI}
   s.email = %q{hitoshi@nextseed.jp}
   s.extra_rdoc_files = [
     "LICENSE.txt",
