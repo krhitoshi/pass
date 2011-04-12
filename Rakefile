@@ -15,8 +15,8 @@ Jeweler::Tasks.new do |gem|
   gem.name = "pass"
   gem.homepage = "http://github.com/krhitoshi/pass"
   gem.license = "MIT"
-  gem.summary = %Q{TODO: Password Generator for CUI}
-  gem.description = %Q{TODO: Password Generator for CUI}
+  gem.summary = %Q{Password Generator for CUI}
+  gem.description = %Q{Password Generator for CUI}
   gem.email = "hitoshi@nextseed.jp"
   gem.authors = ["Hitoshi Kurokawa"]
   # Include your dependencies below. Runtime dependencies are required when using your gem,
