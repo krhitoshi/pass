@@ -50,11 +50,9 @@ describe Pass do
   end
 
   it "見間違えやすい文字列が含まれないこと" do
-    exclude_characters = ['l','o','I','O','1']
+    exclude_characters = %w[l o I O 1]
     50.times do
-      exclude_characters.each do |c|
-        Pass.generate.include?(c).should be_false
-      end
+      (Pass.generate =~ /[#{exclude_characters.join('')}]/).should be_false
     end
   end
 end
