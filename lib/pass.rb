@@ -5,7 +5,7 @@ class Pass
   @list = ('a'..'z').to_a + ('A'..'Z').to_a + ('1'..'9').to_a
   @list.delete_if{|s| %w[l o I O 1].include? s }
 
-  def Pass.generate(num = 12)
+  def Pass.generate(num = NUM_CHARACTERS)
     raise "Invalid Argument: number of characters should be more than 1." if num <= 2
     iteration = 0
     begin
@@ -30,7 +30,7 @@ class Pass
 
   def Pass.exec(argv)
     num_times = argv[0] || 1
-    num_characters = argv[1] || 12
+    num_characters = argv[1] || NUM_CHARACTERS
 
     puts Pass.multi_generate(num_times.to_i, num_characters.to_i)
   end
