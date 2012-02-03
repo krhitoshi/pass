@@ -12,6 +12,12 @@ describe Pass do
     Pass.generate.size.should be(12)
   end
 
+  it "文字列に数字が1文字以上含まれること" do
+    10.times do
+      (Pass.generate(2) =~ /\d/).should be_true
+    end
+  end
+
   it "0以下の文字数を指定するとエラーを発生すること" do
     lambda{ Pass.generate(0) }.should raise_error
     lambda{ Pass.generate(-10) }.should raise_error
