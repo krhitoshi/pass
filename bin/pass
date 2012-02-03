@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
+# The command line password generator
 
+$LOAD_PATH.unshift File.dirname(__FILE__) + '/../lib'
 require 'rubygems'
 require 'pass'
 
