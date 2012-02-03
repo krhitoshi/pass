@@ -30,18 +30,31 @@ describe Pass do
     end
   end
 
-  it "特定回数の生成試行数を超えるとエラーを発生すること" do
-    Pass::NUM_ITERATION = 1
-    lambda{
-      10.times do
-        Pass.generate(3)
-      end
-    }.should raise_error
+  describe "特定回数の生成試行数を超えるとエラーを発生すること" do
+    before do
+      Pass::NUM_ITERATION = 1
+    end
+    it do
+      lambda{
+        10.times do
+          Pass.generate(3)
+        end
+      }.should raise_error
+    end
   end
 
   it "2以下の文字数を指定するとエラーを発生すること" do
     lambda{ Pass.generate(2) }.should raise_error
     lambda{ Pass.generate(0) }.should raise_error
     lambda{ Pass.generate(-10) }.should raise_error
+  end
+
+  it "見間違えやすい文字列が含まれないこと" do
+    exclude_characters = ['l','o','I','O','1']
+    50.times do
+      exclude_characters.each do |c|
+        Pass.generate.include?(c).should be_false
+      end
+    end
   end
 end
