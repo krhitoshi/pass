@@ -8,6 +8,10 @@ describe Pass do
     Pass.generate(30).size.should be(30)
   end
 
+  it "文字数を指定しない場合は12文字であること" do
+    Pass.generate.size.should be(12)
+  end
+
   it "0以下の文字数を指定するとエラーを発生すること" do
     lambda{ Pass.generate(0) }.should raise_error
     lambda{ Pass.generate(-10) }.should raise_error
