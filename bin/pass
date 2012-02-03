@@ -5,17 +5,4 @@ $LOAD_PATH.unshift File.dirname(__FILE__) + '/../lib'
 require 'rubygems'
 require 'pass'
 
-num = 12
-num_times = 1
-
-if ARGV[0]
-  num_times = ARGV[0].to_i
-end
-
-if ARGV[1]
-  num = ARGV[1].to_i
-end
-
-num_times.times{
-  puts Pass.generate num
-}
+Pass.exec(ARGV)

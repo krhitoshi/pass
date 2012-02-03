@@ -27,4 +27,11 @@ class Pass
     }
     passwords
   end
+
+  def Pass.exec(argv)
+    num_times = argv[0] || 1
+    num = argv[1] || 12
+
+    puts Pass.multi_generate(num_times.to_i, num.to_i)
+  end
 end

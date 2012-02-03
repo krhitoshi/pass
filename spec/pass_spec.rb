@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+require "stringio"
+
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
 describe Pass do
@@ -46,6 +48,9 @@ describe Pass do
       before do
         Pass::NUM_ITERATION = 1
       end
+      after do
+        Pass::NUM_ITERATION = 100
+      end
       it do
         lambda{
           10.times do
@@ -65,6 +70,20 @@ describe Pass do
   describe "複数パスワードの生成" do
     it "指定した個数のパスワードを配列で返すこと" do
       Pass.multi_generate(2).size.should be(2)
+    end
+  end
+
+  describe "コマンド用メソッド" do
+    it "指定したパスワードが返ってくること" do
+      $stdout = StringIO.new
+      argv = [3, 16]
+      Pass.exec(argv)
+      passwords = $stdout.string.chomp.split("\n")
+      passwords.size.should be(3)
+      passwords.each do |password|
+        password.size.should be(16)
+      end
+      $stdout = STDOUT
     end
   end
 end
