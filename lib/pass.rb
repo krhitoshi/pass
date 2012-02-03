@@ -4,6 +4,7 @@ class Pass
   @list.delete_if{|s| ['l','o','I','O','1'].include? s }
 
   def Pass.generate(num)
+    raise "Invalid Argument: number of charactors should be more than 1." if num <= 0
     begin
       pass = ''
       num.times{
