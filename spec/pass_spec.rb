@@ -61,4 +61,10 @@ describe Pass do
       lambda{ Pass.generate(-10) }.should raise_error
     end
   end
+
+  describe "複数パスワードの生成" do
+    it "指定した個数のパスワードを配列で返すこと" do
+      Pass.multi_generate(2).size.should be(2)
+    end
+  end
 end
