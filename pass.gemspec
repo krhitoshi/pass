@@ -4,14 +4,15 @@
 # -*- encoding: utf-8 -*-
 
 Gem::Specification.new do |s|
-  s.name = %q{pass}
+  s.name = "pass"
   s.version = "0.0.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Hitoshi Kurokawa"]
-  s.date = %q{2011-04-12}
-  s.description = %q{gem pass - Password Generator for CUI}
-  s.email = %q{hitoshi@nextseed.jp}
+  s.date = "2012-02-03"
+  s.description = "gem pass - Password Generator for CUI"
+  s.email = "hitoshi@nextseed.jp"
+  s.executables = ["pass"]
   s.extra_rdoc_files = [
     "LICENSE.txt",
     "README.rdoc"
@@ -24,16 +25,17 @@ Gem::Specification.new do |s|
     "README.rdoc",
     "Rakefile",
     "VERSION",
+    "bin/pass",
     "lib/pass.rb",
     "pass.gemspec",
     "test/helper.rb",
     "test/test_pass.rb"
   ]
-  s.homepage = %q{http://github.com/krhitoshi/pass}
+  s.homepage = "http://github.com/krhitoshi/pass"
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.7.2}
-  s.summary = %q{Password Generator for CUI}
+  s.rubygems_version = "1.8.10"
+  s.summary = "Password Generator for CUI"
   s.test_files = [
     "test/helper.rb",
     "test/test_pass.rb"
