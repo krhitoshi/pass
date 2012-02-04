@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Hitoshi Kurokawa"]
-  s.date = "2012-02-03"
+  s.date = "2012-02-04"
   s.description = "gem pass - Password Generator for CUI"
   s.email = "hitoshi@nextseed.jp"
   s.executables = ["pass"]
