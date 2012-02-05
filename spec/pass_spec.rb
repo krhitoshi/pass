@@ -105,7 +105,7 @@ describe Pass do
 
   describe "コマンド用メソッド" do
     it "指定したパスワードが返ってくること" do
-      argv = [3, 16] # 16文字 3パスワード
+      argv = %w[3 -c 16] # 16文字 3パスワード
       $stdout = StringIO.new
       Pass.exec(argv)
       passwords = $stdout.string.chomp.split("\n")
