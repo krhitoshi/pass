@@ -1,12 +1,14 @@
 require 'optparse'
 
 class Pass
-  @num_iteration = 100
   NUM_CHARACTERS = 12
-  @list_carachters = ('a'..'z').to_a + ('A'..'Z').to_a + ('1'..'9').to_a
-  @list_carachters.delete_if{|s| %w[l o I O 1].include? s }
+  def initialize
+    @list_carachters = ('a'..'z').to_a + ('A'..'Z').to_a + ('1'..'9').to_a
+    @list_carachters.delete_if{|s| %w[l o I O 1].include? s }
+    @num_iteration = 100
+  end
 
-  def Pass.generate(num = NUM_CHARACTERS)
+  def generate(num)
     raise "Invalid Argument: number of characters should be more than 1." if num <= 2
     iteration = 0
     begin
@@ -17,8 +19,17 @@ class Pass
         pass += @list_carachters[rand_num]
       }
       iteration += 1
-    end until Pass.valid?(pass)
+    end until valid?(pass)
     pass
+  end
+
+  def Pass.generate(num = NUM_CHARACTERS)
+    pass = Pass.new
+    pass.generate(num)
+  end
+
+  def valid?(pass)
+    pass =~ /\d/ && pass =~ /[a-z]/ && pass =~ /[A-Z]/
   end
 
   def Pass.multi_generate(num_password, num_character = NUM_CHARACTERS)
@@ -53,15 +64,11 @@ END
     puts Pass.multi_generate(num_times.to_i, num_characters.to_i)
   end
 
-  def Pass.valid?(pass)
-    pass =~ /\d/ && pass =~ /[a-z]/ && pass =~ /[A-Z]/
-  end
-
-  def Pass.num_iteration
+  def num_iteration
     @num_iteration
   end
 
-  def Pass.num_iteration=(value)
+  def num_iteration=(value)
     raise "Invalid Argument: num_iteration #{value}" if value <= 0
     @num_iteration = value
   end
