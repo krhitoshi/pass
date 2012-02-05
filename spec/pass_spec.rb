@@ -144,5 +144,15 @@ describe Pass do
         password.size.should be(16)
       end
     end
+
+    it "指定順序が変わっても-cで文字数指定ができること" do
+      argv = %w[-c 16 3] # 16文字 3パスワード
+      Pass.exec(argv)
+      passwords = $stdout.string.chomp.split("\n")
+      passwords.size.should be(3)
+      passwords.each do |password|
+        password.size.should be(16)
+      end
+    end
   end
 end
