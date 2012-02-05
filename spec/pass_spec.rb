@@ -75,8 +75,8 @@ describe Pass do
     end
 
     it "0以下の回数値を入力すると例外を発生" do
-      lambda{ Pass.num_iteration = 0 }.should raise_error
-      lambda{ Pass.num_iteration = -10 }.should raise_error
+      lambda{ @pass.num_iteration = 0 }.should raise_error
+      lambda{ @pass.num_iteration = -10 }.should raise_error
     end
   end
 
