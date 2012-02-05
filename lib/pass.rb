@@ -8,7 +8,7 @@ class Pass
     @num_iteration = 100
   end
 
-  def generate(num)
+  def generate(num = NUM_CHARACTERS)
     raise "Invalid Argument: number of characters should be more than 1." if num <= 2
     iteration = 0
     begin
@@ -32,12 +32,16 @@ class Pass
     pass =~ /\d/ && pass =~ /[a-z]/ && pass =~ /[A-Z]/
   end
 
-  def Pass.multi_generate(num_password, num_character = NUM_CHARACTERS)
+  def multi_generate(num_password, num_character = NUM_CHARACTERS)
     passwords = []
     num_password.times{
-      passwords << Pass.generate(num_character)
+      passwords << generate(num_character)
     }
     passwords
+  end
+
+  def Pass.multi_generate(num_password, num_character = NUM_CHARACTERS)
+    Pass.new.multi_generate(num_password, num_character)
   end
 
   def Pass.exec(argv)
