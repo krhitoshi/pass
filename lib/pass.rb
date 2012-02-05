@@ -10,7 +10,7 @@ class Pass
     raise "Invalid Argument: number of characters should be more than 1." if num <= 2
     iteration = 0
     begin
-      raise "Not Converged: #{NUM_ITERATION} times" if iteration > @num_iteration
+      raise "Not Converged: #{@num_iteration} times" if iteration > @num_iteration
       pass = ''
       num.times{
         rand_num = rand(@list_carachters.size)
