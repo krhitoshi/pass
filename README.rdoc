@@ -1,8 +1,22 @@
-= pass
+= Pass
 
-Description goes here.
+Pass is a command to generator random passwords for CUI.
 
-== Contributing to pass
+== Using
+
+The first step is to install the gem
+
+  gem install pass
+
+You can run Pass to generate one random password. A generated password has 12 characters with more than one upper case letter, lower case letter, and numeric character.
+
+  pass
+
+If you need more passwords, you can specify the number of passwords
+
+  pass 12
+
+== Contributing to Pass
  
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet
 * Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it
