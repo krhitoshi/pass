@@ -154,5 +154,10 @@ describe Pass do
         password.size.should be(16)
       end
     end
+
+    it "-cで引数を指定しないと例外が発生すること" do
+      argv = %w[3 -c]
+      lambda{ Pass.exec(argv) }.should raise_error
+    end
   end
 end
