@@ -40,6 +40,14 @@ class Pass
       puts "#{self.name} #{number.chomp}"
       exit
     end
+    opts.banner = <<END
+Usage: pass [options] [number of passwords]
+
+Description:
+  Generates random passwords.
+
+Options:
+END
     res_argv = opts.parse!(argv)
     num_times = res_argv[0] || 1
     puts Pass.multi_generate(num_times.to_i, num_characters.to_i)
