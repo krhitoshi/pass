@@ -46,6 +46,17 @@ describe Pass do
   describe "valid?" do
     it "validなパスワードでtrueを返すこと" do
       Pass.valid?("aT2").should be_true
+      Pass.valid?("1bR").should be_true
+      Pass.valid?("J0e").should be_true
+    end
+
+    it "invalidなパスワードでfalseを返すこと" do
+      Pass.valid?("012").should be_false
+      Pass.valid?("abc").should be_false
+      Pass.valid?("ABC").should be_false
+      Pass.valid?("0bc").should be_false
+      Pass.valid?("0BC").should be_false
+      Pass.valid?("AbC").should be_false
     end
   end
 
