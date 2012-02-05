@@ -35,6 +35,11 @@ class Pass
     opts.on('-c NUM', 'Number of Password Characters') do |value|
       num_characters = value
     end
+    opts.on_tail('-v', '--version', 'Show version') do
+      number = File.read(File.dirname(__FILE__) + '/../VERSION')
+      puts "#{self.name} #{number.chomp}"
+      exit
+    end
     res_argv = opts.parse!(argv)
     num_times = res_argv[0] || 1
     puts Pass.multi_generate(num_times.to_i, num_characters.to_i)
