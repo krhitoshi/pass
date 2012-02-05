@@ -81,6 +81,11 @@ describe Pass do
       before do
         Pass.num_iteration = 1
       end
+
+      after do
+        Pass.num_iteration = 100
+      end
+
       it do
         lambda{
           10.times do
