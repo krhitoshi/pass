@@ -32,7 +32,7 @@ class Pass
   def Pass.exec(argv)
     num_characters = NUM_CHARACTERS
     opts = OptionParser.new
-    opts.on('-c VAL') do |v|
+    opts.on('-c NUM', 'Number of Password Characters') do |v|
       num_characters = v.to_i
     end
     res_argv = opts.parse!(argv)
