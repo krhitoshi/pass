@@ -123,7 +123,7 @@ describe Pass do
 
     it "オプション無しで1個のパスワードが返ってくること" do
       argv = [] # オプションなし
-      Pass.exec(argv)
+      @pass.exec(argv)
       passwords = $stdout.string.chomp.split("\n")
       passwords.size.should be(1)
       passwords.first.size.should be(12)
@@ -131,7 +131,7 @@ describe Pass do
 
     it "パスワード数が指定できること" do
       argv = [20] # 20パスワード
-      Pass.exec(argv)
+      @pass.exec(argv)
       passwords = $stdout.string.chomp.split("\n")
       passwords.size.should be(20)
       passwords.each do |password|
@@ -141,7 +141,7 @@ describe Pass do
 
     it "-cで文字数指定ができること" do
       argv = %w[3 -c 16] # 16文字 3パスワード
-      Pass.exec(argv)
+      @pass.exec(argv)
       passwords = $stdout.string.chomp.split("\n")
       passwords.size.should be(3)
       passwords.each do |password|
@@ -151,7 +151,7 @@ describe Pass do
 
     it "指定順序が変わっても-cで文字数指定ができること" do
       argv = %w[-c 16 3] # 16文字 3パスワード
-      Pass.exec(argv)
+      @pass.exec(argv)
       passwords = $stdout.string.chomp.split("\n")
       passwords.size.should be(3)
       passwords.each do |password|

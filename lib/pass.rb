@@ -39,8 +39,7 @@ class Pass
     Pass.new.generate(num)
   end
 
-  def Pass.exec(argv)
-    pass = Pass.new
+  def exec(argv)
     num_characters = NUM_CHARACTERS
     opts = OptionParser.new
     opts.on('-c NUM', 'Number of Password Characters') do |value|
@@ -61,7 +60,7 @@ Options:
 END
     res_argv = opts.parse!(argv)
     num_times = res_argv[0] || 1
-    puts pass.multi_generate(num_times.to_i, num_characters.to_i)
+    puts multi_generate(num_times.to_i, num_characters.to_i)
   end
 
   def num_iteration
