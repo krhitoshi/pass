@@ -23,11 +23,6 @@ class Pass
     pass
   end
 
-  def Pass.generate(num = NUM_CHARACTERS)
-    pass = Pass.new
-    pass.generate(num)
-  end
-
   def valid?(pass)
     pass =~ /\d/ && pass =~ /[a-z]/ && pass =~ /[A-Z]/
   end
@@ -38,6 +33,10 @@ class Pass
       passwords << generate(num_character)
     }
     passwords
+  end
+
+  def Pass.generate(num = NUM_CHARACTERS)
+    Pass.new.generate(num)
   end
 
   def Pass.multi_generate(num_password, num_character = NUM_CHARACTERS)
