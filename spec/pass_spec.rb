@@ -43,6 +43,12 @@ describe Pass do
     end
   end
 
+  describe "valid?" do
+    it "validなパスワードでtrueを返すこと" do
+      Pass.valid?("aT2").should be_true
+    end
+  end
+
   describe "エラーの発生" do
     describe "特定回数の生成試行数を超えるとエラーを発生すること" do
       before do

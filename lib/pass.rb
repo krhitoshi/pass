@@ -16,7 +16,7 @@ class Pass
         pass += @list_carachters[rand_num]
       }
       iteration += 1
-    end until pass =~ /\d/ && pass =~ /[a-z]/ && pass =~ /[A-Z]/
+    end until Pass.valid?(pass)
     pass
   end
 
@@ -33,5 +33,9 @@ class Pass
     num_characters = argv[1] || NUM_CHARACTERS
 
     puts Pass.multi_generate(num_times.to_i, num_characters.to_i)
+  end
+
+  def Pass.valid?(pass)
+    pass =~ /\d/ && pass =~ /[a-z]/ && pass =~ /[A-Z]/
   end
 end
