@@ -32,12 +32,12 @@ class Pass
   def Pass.exec(argv)
     num_characters = NUM_CHARACTERS
     opts = OptionParser.new
-    opts.on('-c NUM', 'Number of Password Characters') do |v|
-      num_characters = v.to_i
+    opts.on('-c NUM', 'Number of Password Characters') do |value|
+      num_characters = value
     end
     res_argv = opts.parse!(argv)
     num_times = res_argv[0] || 1
-    puts Pass.multi_generate(num_times.to_i, num_characters)
+    puts Pass.multi_generate(num_times.to_i, num_characters.to_i)
   end
 
   def Pass.valid?(pass)
