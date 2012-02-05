@@ -104,16 +104,40 @@ describe Pass do
   end
 
   describe "コマンド用メソッド" do
-    it "指定したパスワードが返ってくること" do
-      argv = %w[3 -c 16] # 16文字 3パスワード
+    before do
       $stdout = StringIO.new
+    end
+
+    after do
+      $stdout = STDOUT
+    end
+
+    it "オプション無しで1個のパスワードが返ってくること" do
+      argv = [] # オプションなし
+      Pass.exec(argv)
+      passwords = $stdout.string.chomp.split("\n")
+      passwords.size.should be(1)
+      passwords.first.size.should be(12)
+    end
+
+    it "パスワード数が指定できること" do
+      argv = [20] # 20パスワード
+      Pass.exec(argv)
+      passwords = $stdout.string.chomp.split("\n")
+      passwords.size.should be(20)
+      passwords.each do |password|
+        password.size.should be(12)
+      end
+    end
+
+    it "-cで文字数指定ができること" do
+      argv = %w[3 -c 16] # 16文字 3パスワード
       Pass.exec(argv)
       passwords = $stdout.string.chomp.split("\n")
       passwords.size.should be(3)
       passwords.each do |password|
         password.size.should be(16)
       end
-      $stdout = STDOUT
     end
   end
 end
