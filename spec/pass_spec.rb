@@ -49,13 +49,26 @@ describe Pass do
     end
   end
 
+  describe "イテレーションの回数" do
+    it "回数値を読み込めること" do
+      Pass.num_iteration.should be(100)
+    end
+
+    it "回数値を変更できること" do
+      Pass.num_iteration = 10
+      Pass.num_iteration.should be(10)
+    end
+
+    it "0以下の回数値を入力すると例外を発生" do
+      lambda{ Pass.num_iteration = 0 }.should raise_error
+      lambda{ Pass.num_iteration = -10 }.should raise_error
+    end
+  end
+
   describe "エラーの発生" do
     describe "特定回数の生成試行数を超えるとエラーを発生すること" do
       before do
-        Pass::NUM_ITERATION = 1
-      end
-      after do
-        Pass::NUM_ITERATION = 100
+        Pass.num_iteration = 1
       end
       it do
         lambda{

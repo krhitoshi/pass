@@ -1,6 +1,6 @@
 
 class Pass
-  NUM_ITERATION = 100
+  @num_iteration = 100
   NUM_CHARACTERS = 12
   @list_carachters = ('a'..'z').to_a + ('A'..'Z').to_a + ('1'..'9').to_a
   @list_carachters.delete_if{|s| %w[l o I O 1].include? s }
@@ -9,7 +9,7 @@ class Pass
     raise "Invalid Argument: number of characters should be more than 1." if num <= 2
     iteration = 0
     begin
-      raise "Not Converged: #{NUM_ITERATION} times" if iteration > NUM_ITERATION
+      raise "Not Converged: #{NUM_ITERATION} times" if iteration > @num_iteration
       pass = ''
       num.times{
         rand_num = rand(@list_carachters.size)
@@ -37,5 +37,14 @@ class Pass
 
   def Pass.valid?(pass)
     pass =~ /\d/ && pass =~ /[a-z]/ && pass =~ /[A-Z]/
+  end
+
+  def Pass.num_iteration
+    @num_iteration
+  end
+
+  def Pass.num_iteration=(value)
+    raise "Invalid Argument: num_iteration #{value}" if value <= 0
+    @num_iteration = value
   end
 end
