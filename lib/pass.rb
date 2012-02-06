@@ -2,6 +2,9 @@ require 'optparse'
 
 class Pass
   NUM_CHARACTERS = 12
+
+  class Error < StandardError; end
+
   def initialize
     @list_carachters = ('a'..'z').to_a + ('A'..'Z').to_a + ('1'..'9').to_a
     @list_carachters.delete_if{|s| %w[l o I O 1].include? s }
@@ -64,7 +67,7 @@ END
   end
 
   def num_iteration=(value)
-    raise "Invalid Argument: num_iteration #{value}" if value <= 0
+    raise(Error, "Invalid Argument: num_iteration #{value}") if !value.kind_of?(Integer) || value <= 0
     @num_iteration = value
   end
 

@@ -104,6 +104,10 @@ describe Pass do
       lambda{ @pass.generate(0) }.should raise_error
       lambda{ @pass.generate(-10) }.should raise_error
     end
+
+    it "不正な回数値を入力すると例外を発生すること" do
+      lambda{ @pass.num_iteration = "abc" }.should raise_error(Pass::Error)
+    end
   end
 
   describe "複数パスワードの生成" do
