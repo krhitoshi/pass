@@ -108,6 +108,10 @@ describe Pass do
     it "不正な回数値を入力すると例外を発生すること" do
       lambda{ @pass.num_iteration = "abc" }.should raise_error(Pass::Error)
     end
+
+    it "不正な文字数を入力すると例外を発生すること" do
+      lambda{ @pass.generate("abc") }.should raise_error(Pass::Error)
+    end
   end
 
   describe "複数パスワードの生成" do

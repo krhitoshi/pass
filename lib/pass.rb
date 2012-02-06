@@ -13,7 +13,7 @@ class Pass
   end
 
   def generate(num = NUM_CHARACTERS)
-    if num < MIN_NUM_CHARACTERS
+    if !integer?(num) || num < MIN_NUM_CHARACTERS
       raise Pass::Error, "Invalid Argument: number of characters should be more than #{MIN_NUM_CHARACTERS}."
     end
 
@@ -78,12 +78,17 @@ END
   end
 
   def num_iteration=(value)
-    raise(Error, "Invalid Argument: num_iteration #{value}") if !value.kind_of?(Integer) || value <= 0
+    raise(Error, "Invalid Argument: num_iteration #{value}") if !integer?(value) || value <= 0
     @num_iteration = value
   end
 
   def version
     number = File.read(File.dirname(__FILE__) + '/../VERSION')
     number.chomp
+  end
+
+  private
+  def integer?(value)
+    value.kind_of?(Integer)
   end
 end
