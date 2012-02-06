@@ -7,8 +7,7 @@ class Pass
   class Error < StandardError; end
 
   def initialize
-    @list_carachters = ('a'..'z').to_a + ('A'..'Z').to_a + ('1'..'9').to_a
-    @list_carachters.delete_if{|s| %w[l o I O 1].include? s }
+    @list_carachters = ('a'..'z').to_a + ('A'..'Z').to_a + ('1'..'9').to_a - %w[l o I O 1]
     @num_iteration = 100
   end
 
