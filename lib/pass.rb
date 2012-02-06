@@ -18,10 +18,7 @@ class Pass
     end
 
     @num_iteration.times do
-      pass = ''
-      num.times do
-        pass += @list_carachters.sample
-      end
+      pass = @list_carachters.sample(num).join
       return pass if valid?(pass)
     end
     raise "Not Converged: #{@num_iteration} times"
