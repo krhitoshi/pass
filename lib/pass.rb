@@ -12,10 +12,9 @@ class Pass
     raise "Invalid Argument: number of characters should be more than 1." if num <= 2
     @num_iteration.times do
       pass = ''
-      num.times{
-        rand_num = rand(@list_carachters.size)
-        pass += @list_carachters[rand_num]
-      }
+      num.times do
+        pass += @list_carachters.sample
+      end
       return pass if valid?(pass)
     end
     raise "Not Converged: #{@num_iteration} times"
@@ -27,9 +26,9 @@ class Pass
 
   def multi_generate(num_password, num_character = NUM_CHARACTERS)
     passwords = []
-    num_password.times{
+    num_password.times do
       passwords << generate(num_character)
-    }
+    end
     passwords
   end
 
