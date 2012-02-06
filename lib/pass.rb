@@ -9,6 +9,7 @@ class Pass
   def initialize
     @list_carachters = ('a'..'z').to_a + ('A'..'Z').to_a + ('1'..'9').to_a - %w[l o I O 1]
     @num_iteration = 100
+    @validation_regexps = [/\d/, /[a-z]/, /[A-Z]/]
   end
 
   def generate(num = NUM_CHARACTERS)
@@ -24,7 +25,7 @@ class Pass
   end
 
   def valid?(pass)
-    pass =~ /\d/ && pass =~ /[a-z]/ && pass =~ /[A-Z]/
+    @validation_regexps.all?{|reg| reg =~ pass}
   end
 
   def multi_generate(num_password, num_character = NUM_CHARACTERS)
