@@ -80,8 +80,8 @@ describe Pass do
     end
   end
 
-  describe "エラーの発生" do
-    describe "特定回数の生成試行数を超えるとエラーを発生すること" do
+  describe "例外の発生" do
+    describe "特定回数の生成試行数を超えると例外を発生すること" do
       before do
         @pass.num_iteration = 1
       end
@@ -99,7 +99,7 @@ describe Pass do
       end
     end
 
-    it "2以下の文字数を指定するとエラーを発生すること" do
+    it "2以下の文字数を指定すると例外を発生すること" do
       lambda{ @pass.generate(2) }.should raise_error
       lambda{ @pass.generate(0) }.should raise_error
       lambda{ @pass.generate(-10) }.should raise_error
