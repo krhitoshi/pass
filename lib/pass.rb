@@ -62,7 +62,6 @@ END
       num_times = res_argv[0] || 1
       puts multi_generate(num_times.to_i, num_characters.to_i)
     rescue SystemExit
-      exit 0
     rescue Exception => e
       $stderr.puts "Error: #{e.message}"
       exit 1
