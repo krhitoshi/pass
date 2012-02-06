@@ -43,8 +43,7 @@ class Pass
       num_characters = value
     end
     opts.on_tail('-v', '--version', 'Show version') do
-      number = File.read(File.dirname(__FILE__) + '/../VERSION')
-      puts "#{self.name} #{number.chomp}"
+      puts "#{self.name} #{version}"
       exit
     end
     opts.banner = <<END
@@ -67,5 +66,10 @@ END
   def num_iteration=(value)
     raise "Invalid Argument: num_iteration #{value}" if value <= 0
     @num_iteration = value
+  end
+
+  def version
+    number = File.read(File.dirname(__FILE__) + '/../VERSION')
+    number.chomp
   end
 end
