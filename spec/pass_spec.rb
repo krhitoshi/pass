@@ -161,7 +161,17 @@ describe Pass do
 
     it "-cで引数を指定しないと例外が発生すること" do
       argv = %w[3 -c]
-      lambda{ Pass.exec(argv) }.should raise_error
+      lambda{ @pass.exec(argv) }.should raise_error
+    end
+
+    it "-vでバージョン表示をするとSystemExitすること" do
+      argv = %w[-v]
+      lambda{ @pass.exec(argv) }.should raise_error(SystemExit)
+    end
+
+    it "-hでヘルプ表示をするとSystemExitすること" do
+      argv = %w[-h]
+      lambda{ @pass.exec(argv) }.should raise_error(SystemExit)
     end
   end
 end

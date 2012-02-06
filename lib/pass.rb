@@ -43,7 +43,7 @@ class Pass
       num_characters = value
     end
     opts.on_tail('-v', '--version', 'Show version') do
-      puts "#{self.name} #{version}"
+      puts "#{self.class.name} #{version}"
       exit
     end
     opts.banner = <<END
