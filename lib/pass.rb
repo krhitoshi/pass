@@ -1,6 +1,7 @@
 require 'optparse'
 
 class Pass
+  MIN_NUM_CHARACTERS = 3
   NUM_CHARACTERS = 12
 
   class Error < StandardError; end
@@ -12,7 +13,10 @@ class Pass
   end
 
   def generate(num = NUM_CHARACTERS)
-    raise Pass::Error, "Invalid Argument: number of characters should be more than 1." if num <= 2
+    if num < MIN_NUM_CHARACTERS
+      raise Pass::Error, "Invalid Argument: number of characters should be more than #{MIN_NUM_CHARACTERS}."
+    end
+
     @num_iteration.times do
       pass = ''
       num.times do
