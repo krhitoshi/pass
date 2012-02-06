@@ -75,8 +75,8 @@ describe Pass do
     end
 
     it "0以下の回数値を入力すると例外を発生" do
-      lambda{ @pass.num_iteration = 0 }.should raise_error
-      lambda{ @pass.num_iteration = -10 }.should raise_error
+      lambda{ @pass.num_iteration = 0 }.should raise_error(Pass::Error)
+      lambda{ @pass.num_iteration = -10 }.should raise_error(Pass::Error)
     end
   end
 
@@ -100,9 +100,9 @@ describe Pass do
     end
 
     it "2以下の文字数を指定すると例外を発生すること" do
-      lambda{ @pass.generate(2) }.should raise_error
-      lambda{ @pass.generate(0) }.should raise_error
-      lambda{ @pass.generate(-10) }.should raise_error
+      lambda{ @pass.generate(2) }.should raise_error(Pass::Error)
+      lambda{ @pass.generate(0) }.should raise_error(Pass::Error)
+      lambda{ @pass.generate(-10) }.should raise_error(Pass::Error)
     end
 
     it "不正な回数値を入力すると例外を発生すること" do

@@ -12,7 +12,7 @@ class Pass
   end
 
   def generate(num = NUM_CHARACTERS)
-    raise "Invalid Argument: number of characters should be more than 1." if num <= 2
+    raise Pass::Error, "Invalid Argument: number of characters should be more than 1." if num <= 2
     @num_iteration.times do
       pass = ''
       num.times do
