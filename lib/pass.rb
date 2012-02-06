@@ -57,9 +57,17 @@ Description:
 
 Options:
 END
-    res_argv = opts.parse!(argv)
-    num_times = res_argv[0] || 1
-    puts multi_generate(num_times.to_i, num_characters.to_i)
+    begin
+      res_argv = opts.parse!(argv)
+      num_times = res_argv[0] || 1
+      puts multi_generate(num_times.to_i, num_characters.to_i)
+    rescue SystemExit
+      exit 0
+    rescue Exception => e
+      $stderr.puts "Error: #{e.message}"
+      exit 1
+    end
+    exit 0
   end
 
   def num_iteration
