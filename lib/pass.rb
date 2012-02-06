@@ -10,17 +10,15 @@ class Pass
 
   def generate(num = NUM_CHARACTERS)
     raise "Invalid Argument: number of characters should be more than 1." if num <= 2
-    iteration = 0
-    begin
-      raise "Not Converged: #{@num_iteration} times" if iteration > @num_iteration
+    @num_iteration.times do
       pass = ''
       num.times{
         rand_num = rand(@list_carachters.size)
         pass += @list_carachters[rand_num]
       }
-      iteration += 1
-    end until valid?(pass)
-    pass
+      return pass if valid?(pass)
+    end
+    raise "Not Converged: #{@num_iteration} times"
   end
 
   def valid?(pass)
