@@ -47,7 +47,7 @@ class Pass
     end
     opts.on_tail('-v', '--version', 'Show version') do
       puts "#{self.class.name} #{version}"
-      exit
+      exit 0
     end
     opts.banner = <<END
 Usage: pass [options] [number of passwords]
