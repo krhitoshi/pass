@@ -12,9 +12,20 @@ You can run Pass to generate one random password. A generated password has 12 ch
 
   pass
 
-If you need more passwords, you can specify the number of passwords
+If you need more passwords, you can specify the number of passwords.
 
   pass 12
+
+You can specify the password length by -c option.
+
+  pass -c 18
+
+== Options
+
+```
+  -c NUM                           specify password length
+  -v, --version                    show version
+```
 
 == Contributing to Pass
  
