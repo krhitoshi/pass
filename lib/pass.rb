@@ -43,10 +43,10 @@ class Pass
   def exec(argv)
     num_characters = NUM_CHARACTERS
     opts = OptionParser.new
-    opts.on('-c NUM', 'Number of Password Characters') do |value|
+    opts.on('-c NUM', 'specify password length') do |value|
       num_characters = value
     end
-    opts.on_tail('-v', '--version', 'Show version') do
+    opts.on_tail('-v', '--version', 'show version') do
       puts "#{self.class.name} #{version}"
       exit 0
     end
