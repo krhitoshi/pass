@@ -5,7 +5,7 @@
 
 ## Description
 
-Pass is a command-line tool to generator random passwords.
+Pass is a command-line tool to generate random passwords.
 
 ## Installation
 
