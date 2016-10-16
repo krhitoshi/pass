@@ -9,8 +9,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Hitoshi Kurokawa"]
   spec.email         = ["hitoshi@nextseed.jp"]
 
-  spec.summary       = %q{Password Generator for CLI}
-  spec.description   = %q{gem pass - Password Generator for CLI}
+  spec.summary       = %q{Password Generator (CLI)}
+  spec.description   = %q{gem pass - Password Generator (CLI)}
   spec.homepage      = "http://github.com/krhitoshi/pass"
   spec.license       = "MIT"
 
