@@ -1,4 +1,5 @@
 require 'optparse'
+require 'pass/version'
 
 class Pass
   MIN_NUM_CHARACTERS = 3
@@ -80,8 +81,7 @@ END
   end
 
   def version
-    number = File.read(File.dirname(__FILE__) + '/../VERSION')
-    number.chomp
+    VERSION
   end
 
   private
