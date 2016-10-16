@@ -21,7 +21,7 @@ class Pass
       pass = @list_carachters.sample(num).join
       return pass if valid?(pass)
     end
-    raise "Not Converged: #{@num_iteration} times"
+    raise Pass::Error, "Not Converged: #{@num_iteration} times"
   end
 
   def valid?(pass)

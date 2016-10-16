@@ -23,44 +23,44 @@ describe Pass do
   describe "特定文字が含まれること含まれないこと" do
     it "文字列に数字が1文字以上含まれること" do
       10.times do
-        (@pass.generate(3) =~ /\d/).should be_true
+        (@pass.generate(3) =~ /\d/).should_not be_nil
       end
     end
 
     it "文字列に小文字が1文字以上含まれること" do
       10.times do
-        (@pass.generate(3) =~ /[a-z]/).should be_true
+        (@pass.generate(3) =~ /[a-z]/).should_not be_nil
       end
     end
 
     it "文字列に大文字が1文字以上含まれること" do
       10.times do
-        (@pass.generate(3) =~ /[A-Z]/).should be_true
+        (@pass.generate(3) =~ /[A-Z]/).should_not be_nil
       end
     end
 
     it "見間違えやすい文字列が含まれないこと" do
       exclude_characters = %w[l o I O 1]
       50.times do
-        (@pass.generate =~ /[#{exclude_characters.join}]/).should be_false
+        (@pass.generate =~ /[#{exclude_characters.join}]/).should be_nil
       end
     end
   end
 
   describe "valid?" do
     it "validなパスワードでtrueを返すこと" do
-      @pass.valid?("aT2").should be_true
-      @pass.valid?("1bR").should be_true
-      @pass.valid?("J0e").should be_true
+      @pass.valid?("aT2").should eq(true)
+      @pass.valid?("1bR").should eq(true)
+      @pass.valid?("J0e").should eq(true)
     end
 
     it "invalidなパスワードでfalseを返すこと" do
-      @pass.valid?("012").should be_false
-      @pass.valid?("abc").should be_false
-      @pass.valid?("ABC").should be_false
-      @pass.valid?("0bc").should be_false
-      @pass.valid?("0BC").should be_false
-      @pass.valid?("AbC").should be_false
+      @pass.valid?("012").should eq(false)
+      @pass.valid?("abc").should eq(false)
+      @pass.valid?("ABC").should eq(false)
+      @pass.valid?("0bc").should eq(false)
+      @pass.valid?("0BC").should eq(false)
+      @pass.valid?("AbC").should eq(false)
     end
   end
 
@@ -95,7 +95,7 @@ describe Pass do
           10.times do
             @pass.generate(3)
           end
-        }.should raise_error
+        }.should raise_error(Pass::Error)
       end
     end
 
