@@ -10,6 +10,8 @@ class Pass
   def initialize
     @list_carachters = ('a'..'z').to_a + ('A'..'Z').to_a + ('1'..'9').to_a - %w[l o I O 1]
     @num_iteration = 100
+
+    # Password must include digit, upper case, and lower case.
     @validation_regexps = [/\d/, /[a-z]/, /[A-Z]/]
   end
 
