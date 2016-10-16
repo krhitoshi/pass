@@ -21,7 +21,13 @@ class Pass
     end
 
     @num_iteration.times do
-      pass = @list_carachters.sample(num).join
+      rest_num = num
+      pass = ""
+      while rest_num > list_size do
+        pass += generate_password(list_size)
+        rest_num -= list_size
+      end
+      pass += generate_password(rest_num)
       return pass if valid?(pass)
     end
     raise Pass::Error, "Not Converged: #{@num_iteration} times"
@@ -90,4 +96,14 @@ END
   def integer?(value)
     value.kind_of?(Integer)
   end
+
+  def list_size
+    @list_carachters.size
+  end
+
+  def generate_password(num)
+    raise ArgumentError, "argument must be less than #{list_size}" if num > list_size
+    @list_carachters.sample(num).join
+  end
+
 end

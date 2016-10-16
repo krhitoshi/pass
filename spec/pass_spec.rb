@@ -18,6 +18,11 @@ describe Pass do
     it "文字数を指定しない場合は12文字であること" do
       expect(@pass.generate.size).to eq(12)
     end
+
+    it "57文字以上のパスワードを生成できること" do
+      expect(@pass.generate(57).size).to eq(57)
+      expect(@pass.generate(200).size).to eq(200)
+    end
   end
 
   describe "特定文字が含まれること含まれないこと" do
