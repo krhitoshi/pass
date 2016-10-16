@@ -1,6 +1,6 @@
 = Pass
 
-Pass is a command to generator random passwords for CUI.
+Pass is a command to generator random passwords for CLI.
 
 == Using
 
