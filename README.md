@@ -1,7 +1,7 @@
 # Pass
 
 [![Gem Version](https://badge.fury.io/rb/pass.svg)](https://badge.fury.io/rb/pass)
-[![Build Status](https://travis-ci.org/krhitoshi/pass.svg?branch=master)](https://travis-ci.org/krhitoshi/pass)
+![Ruby](https://github.com/krhitoshi/pass/workflows/Ruby/badge.svg)
 
 ## Description
 
