@@ -182,4 +182,15 @@ describe Pass do
       expect{ @pass.exec(argv) }.to raise_error(SystemExit)
     end
   end
+
+  describe ".generate" do
+    it "generates a password" do
+      expect(Pass.generate.size).to eq(Pass::DEFAULT_PASSWORD_LENGTH)
+    end
+
+    it "generates a password with password length" do
+      length = 30
+      expect(Pass.generate(length).size).to eq(length)
+    end
+  end
 end
