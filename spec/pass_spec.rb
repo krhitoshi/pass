@@ -1,9 +1,8 @@
-# -*- coding: utf-8 -*-
 require "stringio"
 
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
-describe Pass do
+RSpec.describe Pass do
   before do
     @pass = Pass.new
   end
@@ -80,8 +79,8 @@ describe Pass do
     end
 
     it "0以下の回数値を入力すると例外を発生" do
-      expect{ @pass.num_iteration = 0 }.to raise_error(Pass::Error)
-      expect{ @pass.num_iteration = -10 }.to raise_error(Pass::Error)
+      expect { @pass.num_iteration = 0 }.to raise_error(Pass::Error)
+      expect { @pass.num_iteration = -10 }.to raise_error(Pass::Error)
     end
   end
 
@@ -96,26 +95,26 @@ describe Pass do
       end
 
       it do
-        expect{
+        expect do
           10.times do
             @pass.generate(3)
           end
-        }.to raise_error(Pass::Error)
+        end.to raise_error(Pass::Error)
       end
     end
 
     it "2以下の文字数を指定すると例外を発生すること" do
-      expect{ @pass.generate(2) }.to raise_error(Pass::Error)
-      expect{ @pass.generate(0) }.to raise_error(Pass::Error)
-      expect{ @pass.generate(-10) }.to raise_error(Pass::Error)
+      expect { @pass.generate(2) }.to raise_error(Pass::Error)
+      expect { @pass.generate(0) }.to raise_error(Pass::Error)
+      expect { @pass.generate(-10) }.to raise_error(Pass::Error)
     end
 
     it "不正な回数値を入力すると例外を発生すること" do
-      expect{ @pass.num_iteration = "abc" }.to raise_error(Pass::Error)
+      expect { @pass.num_iteration = "abc" }.to raise_error(Pass::Error)
     end
 
     it "不正な文字数を入力すると例外を発生すること" do
-      expect{ @pass.generate("abc") }.to raise_error(Pass::Error)
+      expect { @pass.generate("abc") }.to raise_error(Pass::Error)
     end
   end
 
@@ -136,7 +135,7 @@ describe Pass do
 
     it "オプション無しで1個のパスワードが返ってくること" do
       argv = [] # オプションなし
-      expect{ @pass.exec(argv) }.to raise_error(SystemExit)
+      expect { @pass.exec(argv) }.to raise_error(SystemExit)
       passwords = $stdout.string.chomp.split("\n")
       expect(passwords.size).to eq(1)
       expect(passwords.first.size).to eq(12)
@@ -144,7 +143,7 @@ describe Pass do
 
     it "パスワード数が指定できること" do
       argv = [20] # 20パスワード
-      expect{ @pass.exec(argv) }.to raise_error(SystemExit)
+      expect { @pass.exec(argv) }.to raise_error(SystemExit)
       passwords = $stdout.string.chomp.split("\n")
       expect(passwords.size).to eq(20)
       passwords.each do |password|
@@ -154,7 +153,7 @@ describe Pass do
 
     it "-cで文字数指定ができること" do
       argv = %w[3 -c 16] # 16文字 3パスワード
-      expect{ @pass.exec(argv) }.to raise_error(SystemExit)
+      expect { @pass.exec(argv) }.to raise_error(SystemExit)
       passwords = $stdout.string.chomp.split("\n")
       expect(passwords.size).to eq(3)
       passwords.each do |password|
@@ -164,7 +163,7 @@ describe Pass do
 
     it "指定順序が変わっても-cで文字数指定ができること" do
       argv = %w[-c 16 3] # 16文字 3パスワード
-     expect{ @pass.exec(argv) }.to raise_error(SystemExit)
+      expect { @pass.exec(argv) }.to raise_error(SystemExit)
       passwords = $stdout.string.chomp.split("\n")
       expect(passwords.size).to eq(3)
       passwords.each do |password|
@@ -174,12 +173,12 @@ describe Pass do
 
     it "-vでバージョン表示をするとSystemExitすること" do
       argv = %w[-v]
-      expect{ @pass.exec(argv) }.to raise_error(SystemExit)
+      expect { @pass.exec(argv) }.to raise_error(SystemExit)
     end
 
     it "-hでヘルプ表示をするとSystemExitすること" do
       argv = %w[-h]
-      expect{ @pass.exec(argv) }.to raise_error(SystemExit)
+      expect { @pass.exec(argv) }.to raise_error(SystemExit)
     end
   end
 
