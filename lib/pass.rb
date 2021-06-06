@@ -23,7 +23,7 @@ class Pass
     @num_iteration.times do
       rest_num = num
       pass = ""
-      while rest_num > list_size do
+      while rest_num > list_size
         pass += generate_password(list_size)
         rest_num -= list_size
       end
@@ -35,7 +35,7 @@ class Pass
   end
 
   def valid?(pass)
-    @validation_regexps.all?{|reg| reg =~ pass}
+    @validation_regexps.all? { |reg| reg =~ pass }
   end
 
   def multi_generate(num_password, num_character = NUM_CHARACTERS)
@@ -85,6 +85,7 @@ class Pass
 
   def num_iteration=(value)
     raise(Error, "Invalid Argument: num_iteration #{value}") if !integer?(value) || value <= 0
+
     @num_iteration = value
   end
 
@@ -106,7 +107,7 @@ class Pass
   end
 
   def integer?(value)
-    value.kind_of?(Integer)
+    value.is_a?(Integer)
   end
 
   def list_size
@@ -115,6 +116,7 @@ class Pass
 
   def generate_password(num)
     raise ArgumentError, "argument must be less than #{list_size}" if num > list_size
+
     @list_chars.sample(num).join
   end
 end
