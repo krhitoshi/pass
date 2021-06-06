@@ -30,6 +30,7 @@ class Pass
       pass += generate_password(rest_num)
       return pass if valid?(pass)
     end
+
     raise Pass::Error, "Not Converged: #{@num_iteration} times"
   end
 
@@ -39,9 +40,11 @@ class Pass
 
   def multi_generate(num_password, num_character = NUM_CHARACTERS)
     passwords = []
+
     num_password.times do
       passwords << generate(num_character)
     end
+
     passwords
   end
 
@@ -51,14 +54,18 @@ class Pass
 
   def exec(argv)
     num_characters = NUM_CHARACTERS
+
     opts = OptionParser.new
+
     opts.on('-c NUM', 'specify password length') do |value|
       num_characters = value
     end
+
     opts.on_tail('-v', '--version', 'show version') do
       puts "#{self.class.name} #{version}"
       exit 0
     end
+
     opts.banner = <<END
 Usage: pass [options] [number of passwords]
 
@@ -67,6 +74,7 @@ Description:
 
 Options:
 END
+
     begin
       res_argv = opts.parse!(argv)
       num_times = res_argv[0] || 1
@@ -76,6 +84,7 @@ END
       $stderr.puts "Error: #{e.message}"
       exit 1
     end
+
     exit 0
   end
 
@@ -93,6 +102,7 @@ END
   end
 
   private
+
   def integer?(value)
     value.kind_of?(Integer)
   end
@@ -105,5 +115,4 @@ END
     raise ArgumentError, "argument must be less than #{list_size}" if num > list_size
     @list_chars.sample(num).join
   end
-
 end
