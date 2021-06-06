@@ -1,11 +1,11 @@
 # Pass
 
 [![Gem Version](https://badge.fury.io/rb/pass.svg)](https://badge.fury.io/rb/pass)
-![Ruby](https://github.com/krhitoshi/pass/workflows/Ruby/badge.svg)
+![Testing workflow](https://github.com/krhitoshi/pass/workflows/Testing%20workflow/badge.svg)
 
 ## Description
 
-Pass is a command-line tool to generate random passwords.
+The 'pass' command generates random passwords.
 
 ## Installation
 
@@ -32,7 +32,7 @@ If you need more passwords, you can specify the number of passwords.
 You can specify the password length by -c option.
 
 ```
-  pass -c 18
+  pass -c 30
 ```
 
 ## Options
