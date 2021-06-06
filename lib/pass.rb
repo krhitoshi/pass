@@ -8,7 +8,7 @@ class Pass
   class Error < StandardError; end
 
   def initialize
-    @list_carachters = ('a'..'z').to_a + ('A'..'Z').to_a + ('1'..'9').to_a - %w[l o I O 1]
+    @list_chars = ('a'..'z').to_a + ('A'..'Z').to_a + ('1'..'9').to_a - %w[l o I O 1]
     @num_iteration = 100
 
     # Password must include digit, upper case, and lower case.
@@ -98,12 +98,12 @@ END
   end
 
   def list_size
-    @list_carachters.size
+    @list_chars.size
   end
 
   def generate_password(num)
     raise ArgumentError, "argument must be less than #{list_size}" if num > list_size
-    @list_carachters.sample(num).join
+    @list_chars.sample(num).join
   end
 
 end
