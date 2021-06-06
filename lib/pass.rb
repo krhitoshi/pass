@@ -48,8 +48,8 @@ class Pass
     passwords
   end
 
-  def Pass.generate(num = NUM_CHARACTERS)
-    Pass.new.generate(num)
+  def self.generate(num = NUM_CHARACTERS)
+    new.generate(num)
   end
 
   def exec(argv)
@@ -66,14 +66,7 @@ class Pass
       exit 0
     end
 
-    opts.banner = <<END
-Usage: pass [options] [number of passwords]
-
-Description:
-  Generates random passwords.
-
-Options:
-END
+    opts.banner = banner
 
     begin
       res_argv = opts.parse!(argv)
@@ -100,6 +93,17 @@ END
   end
 
   private
+
+  def banner
+    <<~BANNER
+      Usage: pass [options] [number of passwords]
+
+      Description:
+        The 'pass' command generates random passwords.
+
+      Options:
+    BANNER
+  end
 
   def integer?(value)
     value.kind_of?(Integer)
