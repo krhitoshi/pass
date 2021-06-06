@@ -79,10 +79,8 @@ END
       res_argv = opts.parse!(argv)
       num_times = res_argv[0] || 1
       puts multi_generate(num_times.to_i, num_characters.to_i)
-    rescue SystemExit
-    rescue Exception => e
-      $stderr.puts "Error: #{e.message}"
-      exit 1
+    rescue StandardError => e
+      warn "Error: #{e.message}"
     end
 
     exit 0
