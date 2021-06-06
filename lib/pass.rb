@@ -2,8 +2,8 @@ require 'optparse'
 require 'pass/version'
 
 class Pass
-  MIN_NUM_CHARACTERS = 3
-  NUM_CHARACTERS = 12
+  MIN_PASSWORD_LENGTH     = 3
+  DEFAULT_PASSWORD_LENGTH = 12
 
   class Error < StandardError; end
 
@@ -15,9 +15,9 @@ class Pass
     @validation_regexps = [/\d/, /[a-z]/, /[A-Z]/]
   end
 
-  def generate(num = NUM_CHARACTERS)
-    if !integer?(num) || num < MIN_NUM_CHARACTERS
-      raise Pass::Error, "Invalid Argument: number of characters should be more than #{MIN_NUM_CHARACTERS}."
+  def generate(num = DEFAULT_PASSWORD_LENGTH)
+    if !integer?(num) || num < MIN_PASSWORD_LENGTH
+      raise Pass::Error, "Invalid Argument: number of characters should be more than #{MIN_PASSWORD_LENGTH}."
     end
 
     @num_iteration.times do
@@ -38,7 +38,7 @@ class Pass
     @validation_regexps.all? { |reg| reg =~ pass }
   end
 
-  def multi_generate(num_password, num_character = NUM_CHARACTERS)
+  def multi_generate(num_password, num_character = DEFAULT_PASSWORD_LENGTH)
     passwords = []
 
     num_password.times do
@@ -48,12 +48,12 @@ class Pass
     passwords
   end
 
-  def self.generate(num = NUM_CHARACTERS)
+  def self.generate(num = DEFAULT_PASSWORD_LENGTH)
     new.generate(num)
   end
 
   def exec(argv)
-    num_characters = NUM_CHARACTERS
+    num_characters = DEFAULT_PASSWORD_LENGTH
 
     opts = OptionParser.new
 
