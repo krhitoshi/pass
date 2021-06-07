@@ -3,6 +3,7 @@ require 'pass/version'
 
 class Pass
   MIN_PASSWORD_LENGTH     = 5
+  DEFAULT_NUM_PASSWORDS   = 1
   DEFAULT_PASSWORD_LENGTH = 20
 
   class Error < StandardError; end
@@ -60,7 +61,8 @@ class Pass
 
     begin
       res_argv = opts.parse!(argv)
-      num_passwords = res_argv[0] || 1
+      num_passwords = res_argv[0] || DEFAULT_NUM_PASSWORDS
+
       puts multi_generate(num_passwords.to_i, password_length.to_i)
     rescue StandardError => e
       warn "Error: #{e.message}"
