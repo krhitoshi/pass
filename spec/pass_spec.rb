@@ -25,24 +25,6 @@ RSpec.describe Pass do
   end
 
   describe "特定文字が含まれること含まれないこと" do
-    it "文字列に数字が1文字以上含まれること" do
-      10.times do
-        expect((@pass.generate(3) =~ /\d/)).to_not be_nil
-      end
-    end
-
-    it "文字列に小文字が1文字以上含まれること" do
-      10.times do
-        expect((@pass.generate(3) =~ /[a-z]/)).to_not be_nil
-      end
-    end
-
-    it "文字列に大文字が1文字以上含まれること" do
-      10.times do
-        expect((@pass.generate(3) =~ /[A-Z]/)).to_not be_nil
-      end
-    end
-
     it "見間違えやすい文字列が含まれないこと" do
       exclude_characters = %w[l o I O 1]
       50.times do
@@ -51,66 +33,11 @@ RSpec.describe Pass do
     end
   end
 
-  describe "valid?" do
-    it "validなパスワードでtrueを返すこと" do
-      expect(@pass.valid?("aT2")).to eq(true)
-      expect(@pass.valid?("1bR")).to eq(true)
-      expect(@pass.valid?("J0e")).to eq(true)
-    end
-
-    it "invalidなパスワードでfalseを返すこと" do
-      expect(@pass.valid?("012")).to eq(false)
-      expect(@pass.valid?("abc")).to eq(false)
-      expect(@pass.valid?("ABC")).to eq(false)
-      expect(@pass.valid?("0bc")).to eq(false)
-      expect(@pass.valid?("0BC")).to eq(false)
-      expect(@pass.valid?("AbC")).to eq(false)
-    end
-  end
-
-  describe "イテレーションの回数" do
-    it "回数値を読み込めること" do
-      expect(@pass.num_iteration).to eq(100)
-    end
-
-    it "回数値を変更できること" do
-      @pass.num_iteration = 10
-      expect(@pass.num_iteration).to eq(10)
-    end
-
-    it "0以下の回数値を入力すると例外を発生" do
-      expect { @pass.num_iteration = 0 }.to raise_error(Pass::Error)
-      expect { @pass.num_iteration = -10 }.to raise_error(Pass::Error)
-    end
-  end
-
   describe "例外の発生" do
-    describe "特定回数の生成試行数を超えると例外を発生すること" do
-      before do
-        @pass.num_iteration = 1
-      end
-
-      after do
-        @pass.num_iteration = 100
-      end
-
-      it do
-        expect do
-          10.times do
-            @pass.generate(3)
-          end
-        end.to raise_error(Pass::Error)
-      end
-    end
-
     it "2以下の文字数を指定すると例外を発生すること" do
       expect { @pass.generate(2) }.to raise_error(Pass::Error)
       expect { @pass.generate(0) }.to raise_error(Pass::Error)
       expect { @pass.generate(-10) }.to raise_error(Pass::Error)
-    end
-
-    it "不正な回数値を入力すると例外を発生すること" do
-      expect { @pass.num_iteration = "abc" }.to raise_error(Pass::Error)
     end
 
     it "不正な文字数を入力すると例外を発生すること" do
