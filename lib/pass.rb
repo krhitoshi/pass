@@ -9,10 +9,6 @@ class Pass
 
   def initialize
     @list_chars = ('a'..'z').to_a + ('A'..'Z').to_a + ('1'..'9').to_a - %w[l o I O 1]
-    @num_iteration = 100
-
-    # Password must include digit, upper case, and lower case.
-    @validation_regexps = [/\d/, /[a-z]/, /[A-Z]/]
   end
 
   def generate(num = DEFAULT_PASSWORD_LENGTH)
@@ -20,22 +16,15 @@ class Pass
       raise Pass::Error, "Invalid Argument: number of characters should be more than #{MIN_PASSWORD_LENGTH}."
     end
 
-    @num_iteration.times do
-      rest_num = num
-      pass = ""
-      while rest_num > list_size
-        pass += generate_password(list_size)
-        rest_num -= list_size
-      end
-      pass += generate_password(rest_num)
-      return pass if valid?(pass)
+    rest_num = num
+    pass = ""
+    while rest_num > list_size
+      pass += generate_password(list_size)
+      rest_num -= list_size
     end
+    pass += generate_password(rest_num)
 
-    raise Pass::Error, "Not Converged: #{@num_iteration} times"
-  end
-
-  def valid?(pass)
-    @validation_regexps.all? { |reg| reg =~ pass }
+    pass
   end
 
   def multi_generate(num_password, num_character = DEFAULT_PASSWORD_LENGTH)
@@ -77,16 +66,6 @@ class Pass
     end
 
     exit 0
-  end
-
-  def num_iteration
-    @num_iteration
-  end
-
-  def num_iteration=(value)
-    raise(Error, "Invalid Argument: num_iteration #{value}") if !integer?(value) || value <= 0
-
-    @num_iteration = value
   end
 
   def version
