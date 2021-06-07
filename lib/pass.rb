@@ -53,12 +53,12 @@ class Pass
   end
 
   def exec(argv)
-    num_characters = DEFAULT_PASSWORD_LENGTH
+    password_length = DEFAULT_PASSWORD_LENGTH
 
     opts = OptionParser.new
 
     opts.on('-c NUM', 'specify password length') do |value|
-      num_characters = value
+      password_length = value
     end
 
     opts.on_tail('-v', '--version', 'show version') do
@@ -70,8 +70,8 @@ class Pass
 
     begin
       res_argv = opts.parse!(argv)
-      num_times = res_argv[0] || 1
-      puts multi_generate(num_times.to_i, num_characters.to_i)
+      num_passwords = res_argv[0] || 1
+      puts multi_generate(num_passwords.to_i, password_length.to_i)
     rescue StandardError => e
       warn "Error: #{e.message}"
     end
