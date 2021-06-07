@@ -2,8 +2,8 @@ require 'optparse'
 require 'pass/version'
 
 class Pass
-  MIN_PASSWORD_LENGTH     = 3
-  DEFAULT_PASSWORD_LENGTH = 12
+  MIN_PASSWORD_LENGTH     = 5
+  DEFAULT_PASSWORD_LENGTH = 20
 
   class Error < StandardError; end
 
@@ -13,7 +13,8 @@ class Pass
 
   def generate(num = DEFAULT_PASSWORD_LENGTH)
     if !integer?(num) || num < MIN_PASSWORD_LENGTH
-      raise Pass::Error, "Invalid Argument: number of characters should be more than #{MIN_PASSWORD_LENGTH}."
+      raise Pass::Error,
+            "Invalid Argument: password length must be more than #{MIN_PASSWORD_LENGTH}."
     end
 
     rest_num = num

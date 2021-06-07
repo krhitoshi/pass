@@ -9,13 +9,13 @@ RSpec.describe Pass do
 
   describe "出力される文字数" do
     it "文字数を指定できること" do
-      expect(@pass.generate(3).size).to eq(3)
+      expect(@pass.generate(5).size).to eq(5)
       expect(@pass.generate(12).size).to eq(12)
       expect(@pass.generate(30).size).to eq(30)
     end
 
-    it "文字数を指定しない場合は12文字であること" do
-      expect(@pass.generate.size).to eq(12)
+    it "文字数を指定しない場合は#{Pass::DEFAULT_PASSWORD_LENGTH}文字であること" do
+      expect(@pass.generate.size).to eq(Pass::DEFAULT_PASSWORD_LENGTH)
     end
 
     it "57文字以上のパスワードを生成できること" do
@@ -34,8 +34,8 @@ RSpec.describe Pass do
   end
 
   describe "例外の発生" do
-    it "2以下の文字数を指定すると例外を発生すること" do
-      expect { @pass.generate(2) }.to raise_error(Pass::Error)
+    it "#{Pass::MIN_PASSWORD_LENGTH-1}以下の文字数を指定すると例外を発生すること" do
+      expect { @pass.generate(Pass::MIN_PASSWORD_LENGTH-1) }.to raise_error(Pass::Error)
       expect { @pass.generate(0) }.to raise_error(Pass::Error)
       expect { @pass.generate(-10) }.to raise_error(Pass::Error)
     end
@@ -65,7 +65,7 @@ RSpec.describe Pass do
       expect { @pass.exec(argv) }.to raise_error(SystemExit)
       passwords = $stdout.string.chomp.split("\n")
       expect(passwords.size).to eq(1)
-      expect(passwords.first.size).to eq(12)
+      expect(passwords.first.size).to eq(Pass::DEFAULT_PASSWORD_LENGTH)
     end
 
     it "パスワード数が指定できること" do
@@ -74,7 +74,7 @@ RSpec.describe Pass do
       passwords = $stdout.string.chomp.split("\n")
       expect(passwords.size).to eq(20)
       passwords.each do |password|
-        expect(password.size).to eq(12)
+        expect(password.size).to eq(Pass::DEFAULT_PASSWORD_LENGTH)
       end
     end
 
