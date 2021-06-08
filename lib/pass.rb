@@ -53,7 +53,7 @@ class Pass
     end
 
     opts.on_tail('-v', '--version', 'show version') do
-      puts "#{self.class.name} #{version}"
+      puts "pass #{Pass::VERSION}"
       exit 0
     end
 
@@ -69,10 +69,6 @@ class Pass
     end
 
     exit 0
-  end
-
-  def version
-    VERSION
   end
 
   private
