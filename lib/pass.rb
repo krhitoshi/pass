@@ -25,21 +25,22 @@ class Pass
     end
   end
 
-  def generate(num = DEFAULT_PASSWORD_LENGTH)
-    if !integer?(num) || num < MIN_PASSWORD_LENGTH
+  def generate(length = DEFAULT_PASSWORD_LENGTH)
+    if !integer?(length) || length < MIN_PASSWORD_LENGTH
       raise Pass::Error,
             "Invalid Argument: password length must be more than #{MIN_PASSWORD_LENGTH}."
     end
 
-    rest_num = num
-    pass = ""
-    while rest_num > char_list_size
-      pass += generate_password(char_list_size)
-      rest_num -= char_list_size
+    rest_length = length
+    result = ""
+    # append append password string until 'result' reaches the 'length'
+    while rest_length > char_list_size
+      result += generate_password_base(char_list_size)
+      rest_length -= char_list_size
     end
-    pass += generate_password(rest_num)
+    result += generate_password_base(rest_length)
 
-    pass
+    result
   end
 
   def multi_generate(num_password, num_character = DEFAULT_PASSWORD_LENGTH)
@@ -109,9 +110,12 @@ class Pass
     char_list.size
   end
 
-  def generate_password(num)
-    raise ArgumentError, "argument must be less than #{char_list_size}" if num > char_list_size
+  # generate a password that is long less than 'char_list_size'
+  def generate_password_base(length)
+    if length > char_list_size
+      raise ArgumentError, "argument must be less than #{char_list_size}"
+    end
 
-    char_list.sample(num).join
+    char_list.sample(length).join
   end
 end
