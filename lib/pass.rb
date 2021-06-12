@@ -9,7 +9,7 @@ class Pass
   class Error < StandardError; end
 
   def initialize
-    @list_chars = ('a'..'z').to_a + ('A'..'Z').to_a + ('1'..'9').to_a - %w[l o I O 1]
+    @char_list = ('a'..'z').to_a + ('A'..'Z').to_a + ('1'..'9').to_a - %w[l o I O 1]
   end
 
   def generate(num = DEFAULT_PASSWORD_LENGTH)
@@ -20,9 +20,9 @@ class Pass
 
     rest_num = num
     pass = ""
-    while rest_num > list_size
-      pass += generate_password(list_size)
-      rest_num -= list_size
+    while rest_num > char_list_size
+      pass += generate_password(char_list_size)
+      rest_num -= char_list_size
     end
     pass += generate_password(rest_num)
 
@@ -88,13 +88,13 @@ class Pass
     value.is_a?(Integer)
   end
 
-  def list_size
-    @list_chars.size
+  def char_list_size
+    @char_list.size
   end
 
   def generate_password(num)
-    raise ArgumentError, "argument must be less than #{list_size}" if num > list_size
+    raise ArgumentError, "argument must be less than #{char_list_size}" if num > char_list_size
 
-    @list_chars.sample(num).join
+    @char_list.sample(num).join
   end
 end
