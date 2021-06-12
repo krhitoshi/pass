@@ -3,6 +3,6 @@
 
 $LOAD_PATH.unshift File.dirname(__FILE__) + '/../lib'
 require 'rubygems'
-require 'pass'
+require 'pass/cli'
 
-Pass.new.exec(ARGV)
+Pass::CLI.new.exec(ARGV)
