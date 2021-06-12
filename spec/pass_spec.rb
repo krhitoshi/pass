@@ -7,6 +7,15 @@ RSpec.describe Pass do
     @pass = Pass.new
   end
 
+  describe "#generate" do
+    context "with :symbols option" do
+      it "generates a password including symbols" do
+        pass = Pass.new(symbols: true)
+        expect(pass.generate(LONG_ENOUGH_LENGTH)).to match(SYMBOL_CHARS_REGEXP)
+      end
+    end
+  end
+
   describe "出力される文字数" do
     it "文字数を指定できること" do
       expect(@pass.generate(5).size).to eq(5)
