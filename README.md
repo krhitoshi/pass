@@ -1,4 +1,4 @@
-# Pass
+# pass
 
 [![Gem Version](https://badge.fury.io/rb/pass.svg)](https://badge.fury.io/rb/pass)
 ![Testing workflow](https://github.com/krhitoshi/pass/workflows/Testing%20workflow/badge.svg)
@@ -39,6 +39,7 @@ You can specify the password length by -c option.
 
 ```
   -c NUM                           specify password length
+  -s                               include symbols
   -v, --version                    show version
 ```
 
