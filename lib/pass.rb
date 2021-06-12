@@ -10,7 +10,7 @@ class Pass
 
   class Error < StandardError; end
 
-  def initialize(options = {})
+  def initialize(**options)
     @options = options
   end
 

@@ -4,11 +4,8 @@ require 'pass/version'
 
 class Pass
   class CLI
-    def initialize
-      @options = {}
-    end
-
     def exec(argv)
+      options = {}
       password_length = Pass::DEFAULT_PASSWORD_LENGTH
 
       opts = OptionParser.new
@@ -18,7 +15,7 @@ class Pass
       end
 
       opts.on('-s', 'include symbols') do
-        @options[:symbols] = true
+        options[:symbols] = true
       end
 
       opts.on_tail('-v', '--version', 'show version') do
@@ -32,7 +29,7 @@ class Pass
         res_argv = opts.parse!(argv)
         num_passwords = res_argv[0] || Pass::DEFAULT_NUM_PASSWORDS
 
-        pass = Pass.new(@options)
+        pass = Pass.new(**options)
         puts pass.multi_generate(num_passwords.to_i, password_length.to_i)
       rescue Pass::Error => e
         warn "Error: #{e.message}"
