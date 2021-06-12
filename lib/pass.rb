@@ -8,12 +8,21 @@ class Pass
 
   ALPHABETIC_CHARS = ('a'..'z').to_a + ('A'..'Z').to_a
   NUMERIC_CHARS    = ('1'..'9').to_a
-  AMBIGUOUS_CHARS  = %w[l o I O 1]
+  SYMBOL_CHARS     = ('!'..'/').to_a + (':'..'@').to_a + ('['..'`').to_a + ('{'..'~').to_a
+  AMBIGUOUS_CHARS  = %w[l o I O 1 " ' ` |]
 
   class Error < StandardError; end
 
   def initialize
-    @char_list = ALPHABETIC_CHARS + NUMERIC_CHARS - AMBIGUOUS_CHARS
+    @options = {}
+  end
+
+  def char_list
+    if @options[:symbols]
+      ALPHABETIC_CHARS + NUMERIC_CHARS + SYMBOL_CHARS - AMBIGUOUS_CHARS
+    else
+      ALPHABETIC_CHARS + NUMERIC_CHARS - AMBIGUOUS_CHARS
+    end
   end
 
   def generate(num = DEFAULT_PASSWORD_LENGTH)
@@ -56,6 +65,10 @@ class Pass
       password_length = value
     end
 
+    opts.on('-s', 'include symbols') do
+      @options[:symbols] = true
+    end
+
     opts.on_tail('-v', '--version', 'show version') do
       puts "pass #{Pass::VERSION}"
       exit 0
@@ -93,12 +106,12 @@ class Pass
   end
 
   def char_list_size
-    @char_list.size
+    char_list.size
   end
 
   def generate_password(num)
     raise ArgumentError, "argument must be less than #{char_list_size}" if num > char_list_size
 
-    @char_list.sample(num).join
+    char_list.sample(num).join
   end
 end
