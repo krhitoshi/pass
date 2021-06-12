@@ -6,10 +6,14 @@ class Pass
   DEFAULT_NUM_PASSWORDS   = 1
   DEFAULT_PASSWORD_LENGTH = 20
 
+  ALPHABETIC_CHARS = ('a'..'z').to_a + ('A'..'Z').to_a
+  NUMERIC_CHARS    = ('1'..'9').to_a
+  AMBIGUOUS_CHARS  = %w[l o I O 1]
+
   class Error < StandardError; end
 
   def initialize
-    @char_list = ('a'..'z').to_a + ('A'..'Z').to_a + ('1'..'9').to_a - %w[l o I O 1]
+    @char_list = ALPHABETIC_CHARS + NUMERIC_CHARS - AMBIGUOUS_CHARS
   end
 
   def generate(num = DEFAULT_PASSWORD_LENGTH)
