@@ -3,12 +3,26 @@ require 'pass/version'
 
 class Pass
   MIN_PASSWORD_LENGTH     = 5
+  DEFAULT_NUM_PASSWORDS   = 1
   DEFAULT_PASSWORD_LENGTH = 20
+
+  ALPHABETIC_CHARS = ('a'..'z').to_a + ('A'..'Z').to_a
+  NUMERIC_CHARS    = ('1'..'9').to_a
+  SYMBOL_CHARS     = ('!'..'/').to_a + (':'..'@').to_a + ('['..'`').to_a + ('{'..'~').to_a
+  AMBIGUOUS_CHARS  = %w[l o I O 1 " ' ` |]
 
   class Error < StandardError; end
 
   def initialize
-    @list_chars = ('a'..'z').to_a + ('A'..'Z').to_a + ('1'..'9').to_a - %w[l o I O 1]
+    @options = {}
+  end
+
+  def char_list
+    if @options[:symbols]
+      ALPHABETIC_CHARS + NUMERIC_CHARS + SYMBOL_CHARS - AMBIGUOUS_CHARS
+    else
+      ALPHABETIC_CHARS + NUMERIC_CHARS - AMBIGUOUS_CHARS
+    end
   end
 
   def generate(num = DEFAULT_PASSWORD_LENGTH)
@@ -19,9 +33,9 @@ class Pass
 
     rest_num = num
     pass = ""
-    while rest_num > list_size
-      pass += generate_password(list_size)
-      rest_num -= list_size
+    while rest_num > char_list_size
+      pass += generate_password(char_list_size)
+      rest_num -= char_list_size
     end
     pass += generate_password(rest_num)
 
@@ -51,8 +65,12 @@ class Pass
       password_length = value
     end
 
+    opts.on('-s', 'include symbols') do
+      @options[:symbols] = true
+    end
+
     opts.on_tail('-v', '--version', 'show version') do
-      puts "#{self.class.name} #{version}"
+      puts "pass #{Pass::VERSION}"
       exit 0
     end
 
@@ -60,17 +78,14 @@ class Pass
 
     begin
       res_argv = opts.parse!(argv)
-      num_passwords = res_argv[0] || 1
+      num_passwords = res_argv[0] || DEFAULT_NUM_PASSWORDS
+
       puts multi_generate(num_passwords.to_i, password_length.to_i)
     rescue StandardError => e
       warn "Error: #{e.message}"
     end
 
     exit 0
-  end
-
-  def version
-    VERSION
   end
 
   private
@@ -90,13 +105,13 @@ class Pass
     value.is_a?(Integer)
   end
 
-  def list_size
-    @list_chars.size
+  def char_list_size
+    char_list.size
   end
 
   def generate_password(num)
-    raise ArgumentError, "argument must be less than #{list_size}" if num > list_size
+    raise ArgumentError, "argument must be less than #{char_list_size}" if num > char_list_size
 
-    @list_chars.sample(num).join
+    char_list.sample(num).join
   end
 end
