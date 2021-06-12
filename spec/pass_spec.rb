@@ -8,6 +8,12 @@ RSpec.describe Pass do
   end
 
   describe "#generate" do
+    context "with no options" do
+      it "generates a password not including any symbols" do
+        expect(@pass.generate(LONG_ENOUGH_LENGTH)).not_to match(SYMBOL_CHARS_REGEXP)
+      end
+    end
+
     context "with :symbols option" do
       it "generates a password including symbols" do
         pass = Pass.new(symbols: true)
