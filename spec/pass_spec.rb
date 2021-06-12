@@ -51,64 +51,6 @@ RSpec.describe Pass do
     end
   end
 
-  describe "コマンド用メソッド" do
-    before do
-      $stdout = StringIO.new
-    end
-
-    after do
-      $stdout = STDOUT
-    end
-
-    it "オプション無しで1個のパスワードが返ってくること" do
-      argv = [] # オプションなし
-      expect { @pass.exec(argv) }.to raise_error(SystemExit)
-      passwords = $stdout.string.chomp.split("\n")
-      expect(passwords.size).to eq(1)
-      expect(passwords.first.size).to eq(Pass::DEFAULT_PASSWORD_LENGTH)
-    end
-
-    it "パスワード数が指定できること" do
-      argv = [20] # 20パスワード
-      expect { @pass.exec(argv) }.to raise_error(SystemExit)
-      passwords = $stdout.string.chomp.split("\n")
-      expect(passwords.size).to eq(20)
-      passwords.each do |password|
-        expect(password.size).to eq(Pass::DEFAULT_PASSWORD_LENGTH)
-      end
-    end
-
-    it "-cで文字数指定ができること" do
-      argv = %w[3 -c 16] # 16文字 3パスワード
-      expect { @pass.exec(argv) }.to raise_error(SystemExit)
-      passwords = $stdout.string.chomp.split("\n")
-      expect(passwords.size).to eq(3)
-      passwords.each do |password|
-        expect(password.size).to eq(16)
-      end
-    end
-
-    it "指定順序が変わっても-cで文字数指定ができること" do
-      argv = %w[-c 16 3] # 16文字 3パスワード
-      expect { @pass.exec(argv) }.to raise_error(SystemExit)
-      passwords = $stdout.string.chomp.split("\n")
-      expect(passwords.size).to eq(3)
-      passwords.each do |password|
-        expect(password.size).to eq(16)
-      end
-    end
-
-    it "-vでバージョン表示をするとSystemExitすること" do
-      argv = %w[-v]
-      expect { @pass.exec(argv) }.to raise_error(SystemExit)
-    end
-
-    it "-hでヘルプ表示をするとSystemExitすること" do
-      argv = %w[-h]
-      expect { @pass.exec(argv) }.to raise_error(SystemExit)
-    end
-  end
-
   describe ".generate" do
     it "generates a password" do
       expect(Pass.generate.size).to eq(Pass::DEFAULT_PASSWORD_LENGTH)

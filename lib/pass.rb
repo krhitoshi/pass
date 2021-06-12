@@ -1,6 +1,3 @@
-require 'optparse'
-require 'pass/version'
-
 class Pass
   MIN_PASSWORD_LENGTH     = 5
   DEFAULT_NUM_PASSWORDS   = 1
@@ -13,8 +10,8 @@ class Pass
 
   class Error < StandardError; end
 
-  def initialize
-    @options = {}
+  def initialize(options = {})
+    @options = options
   end
 
   def char_list
@@ -57,50 +54,7 @@ class Pass
     new.generate(num)
   end
 
-  def exec(argv)
-    password_length = DEFAULT_PASSWORD_LENGTH
-
-    opts = OptionParser.new
-
-    opts.on('-c NUM', 'specify password length') do |value|
-      password_length = value
-    end
-
-    opts.on('-s', 'include symbols') do
-      @options[:symbols] = true
-    end
-
-    opts.on_tail('-v', '--version', 'show version') do
-      puts "pass #{Pass::VERSION}"
-      exit 0
-    end
-
-    opts.banner = banner
-
-    begin
-      res_argv = opts.parse!(argv)
-      num_passwords = res_argv[0] || DEFAULT_NUM_PASSWORDS
-
-      puts multi_generate(num_passwords.to_i, password_length.to_i)
-    rescue StandardError => e
-      warn "Error: #{e.message}"
-    end
-
-    exit 0
-  end
-
   private
-
-  def banner
-    <<~BANNER
-      Usage: pass [options] [number of passwords]
-
-      Description:
-        The 'pass' command generates random passwords.
-
-      Options:
-    BANNER
-  end
 
   def integer?(value)
     value.is_a?(Integer)
