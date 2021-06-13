@@ -39,7 +39,7 @@ class Pass
 
         pass = Pass.new(**options)
         puts pass.multi_generate(num_passwords.to_i, password_length.to_i)
-      rescue Pass::Error => e
+      rescue Pass::Error, OptionParser::ParseError => e
         warn "Error: #{e.message}"
       end
 
