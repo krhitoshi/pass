@@ -5,7 +5,13 @@ require 'pass/cli'
 LONG_ENOUGH_LENGTH = 200
 
 def chars_regexp(list)
-  /[#{Regexp.escape(list.join)}]/
+  str = if list.is_a?(Array)
+          list.join
+        else
+          list
+        end
+
+  /[#{Regexp.escape(str)}]/
 end
 
 SYMBOL_CHARS_REGEXP = chars_regexp(Pass::SYMBOL_CHARS - Pass::AMBIGUOUS_CHARS)

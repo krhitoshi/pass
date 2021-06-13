@@ -46,6 +46,14 @@ RSpec.describe Pass do
         expect(pass.generate(LONG_ENOUGH_LENGTH)).to match(SYMBOL_CHARS_REGEXP)
       end
     end
+
+    context "with :exclude option" do
+      it "generates a password including symbols" do
+        list = 'ABCDEFGHabcdefgh'
+        pass = Pass.new(exclude: 'ABCDEFGHabcdefgh')
+        expect(pass.generate(LONG_ENOUGH_LENGTH)).not_to match(chars_regexp(list))
+      end
+    end
   end
 
   describe "例外の発生" do
