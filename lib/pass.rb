@@ -31,7 +31,7 @@ class Pass
   end
 
   def generate(length = DEFAULT_PASSWORD_LENGTH)
-    if !integer?(length) || length < MIN_PASSWORD_LENGTH
+    if length < MIN_PASSWORD_LENGTH
       raise Pass::Error,
             "Invalid Argument: password length must be more than #{MIN_PASSWORD_LENGTH}."
     end
@@ -48,25 +48,11 @@ class Pass
     result
   end
 
-  def multi_generate(num_password, num_character = DEFAULT_PASSWORD_LENGTH)
-    passwords = []
-
-    num_password.times do
-      passwords << generate(num_character)
-    end
-
-    passwords
-  end
-
   def self.generate(num = DEFAULT_PASSWORD_LENGTH)
     new.generate(num)
   end
 
   private
-
-  def integer?(value)
-    value.is_a?(Integer)
-  end
 
   def char_list_size
     char_list.size

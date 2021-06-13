@@ -68,16 +68,6 @@ RSpec.describe Pass do
       expect { @pass.generate(0) }.to raise_error(Pass::Error)
       expect { @pass.generate(-10) }.to raise_error(Pass::Error)
     end
-
-    it "不正な文字数を入力すると例外を発生すること" do
-      expect { @pass.generate("abc") }.to raise_error(Pass::Error)
-    end
-  end
-
-  describe "複数パスワードの生成" do
-    it "指定した個数のパスワードを配列で返すこと" do
-      expect(@pass.multi_generate(2).size).to eq(2)
-    end
   end
 
   describe ".generate" do
