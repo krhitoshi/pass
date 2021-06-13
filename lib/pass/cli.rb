@@ -10,12 +10,16 @@ class Pass
 
       opts = OptionParser.new
 
-      opts.on('-c NUM', 'specify password length') do |value|
+      opts.on('-c [NUMBER]', '(deprecated) specify password length') do |value|
         password_length = value
       end
 
-      opts.on('-s', 'include symbols') do
-        options[:symbols] = true
+      opts.on('-l', '--length [NUMBER]', 'specify password length') do |value|
+        password_length = value
+      end
+
+      opts.on('-s', '--symbols', 'include symbols') do |value|
+        options[:symbols] = value
       end
 
       opts.on('-e', '--exclude [CHARACTERS]', 'exclude characters') do |value|
