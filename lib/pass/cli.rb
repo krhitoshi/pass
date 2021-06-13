@@ -49,7 +49,7 @@ class Pass
           puts pass.generate(password_length)
         end
       rescue Pass::Error, Pass::CLI::Error, OptionParser::ParseError => e
-        warn "Error: #{e.message}"
+        abort "Error: #{e.message}"
       end
 
       exit 0
