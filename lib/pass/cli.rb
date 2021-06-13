@@ -4,6 +4,8 @@ require 'pass/version'
 
 class Pass
   class CLI
+    class Error < StandardError; end
+
     def exec(argv)
       options = {}
       password_length = Pass::DEFAULT_PASSWORD_LENGTH
@@ -11,11 +13,11 @@ class Pass
       opts = OptionParser.new
 
       opts.on('-c [NUMBER]', '(deprecated) specify password length') do |value|
-        password_length = value
+        password_length = option_to_i(value)
       end
 
       opts.on('-l', '--length [NUMBER]', 'specify password length') do |value|
-        password_length = value
+        password_length = option_to_i(value)
       end
 
       opts.on('-s', '--symbols', 'include symbols') do |value|
@@ -35,11 +37,18 @@ class Pass
 
       begin
         res_argv = opts.parse!(argv)
-        num_passwords = res_argv[0] || Pass::DEFAULT_NUM_PASSWORDS
+        num_passwords = if res_argv[0]
+                          option_to_i(res_argv[0])
+                        else
+                          Pass::DEFAULT_NUM_PASSWORDS
+                        end
 
         pass = Pass.new(**options)
-        puts pass.multi_generate(num_passwords.to_i, password_length.to_i)
-      rescue Pass::Error, OptionParser::ParseError => e
+
+        num_passwords.times do
+          puts pass.generate(password_length)
+        end
+      rescue Pass::Error, Pass::CLI::Error, OptionParser::ParseError => e
         warn "Error: #{e.message}"
       end
 
@@ -47,6 +56,12 @@ class Pass
     end
 
     private
+
+    def option_to_i(opt)
+      Integer(opt)
+    rescue ArgumentError => _e
+      raise Error, "the option must be an integer: '#{opt}'"
+    end
 
     def banner
       <<~BANNER
