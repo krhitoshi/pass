@@ -8,7 +8,33 @@ RSpec.describe Pass do
   end
 
   describe "#generate" do
+    context "with password length argument" do
+      before do
+        @char_list_size = @pass.char_list.size
+      end
+
+      it "generates a password that has the specified length" do
+        expect(@pass.generate(5).size).to eq(5)
+        expect(@pass.generate(12).size).to eq(12)
+        expect(@pass.generate(30).size).to eq(30)
+      end
+
+      it "generates a password longer than #{@char_list_size} characters" do
+        expect(@pass.generate(@char_list_size + 1).size).to eq(@char_list_size + 1)
+      end
+    end
+
+    context "with long enough password length argument" do
+      it "generates a password not including ambiguous characters" do
+        expect(@pass.generate(LONG_ENOUGH_LENGTH)).not_to match(AMBIGUOUS_CHARS_REGEXP)
+      end
+    end
+
     context "with no options" do
+      it "generates a #{Pass::DEFAULT_PASSWORD_LENGTH}-character password" do
+        expect(@pass.generate.size).to eq(Pass::DEFAULT_PASSWORD_LENGTH)
+      end
+
       it "generates a password not including any symbols" do
         expect(@pass.generate(LONG_ENOUGH_LENGTH)).not_to match(SYMBOL_CHARS_REGEXP)
       end
@@ -18,32 +44,6 @@ RSpec.describe Pass do
       it "generates a password including symbols" do
         pass = Pass.new(symbols: true)
         expect(pass.generate(LONG_ENOUGH_LENGTH)).to match(SYMBOL_CHARS_REGEXP)
-      end
-    end
-  end
-
-  describe "出力される文字数" do
-    it "文字数を指定できること" do
-      expect(@pass.generate(5).size).to eq(5)
-      expect(@pass.generate(12).size).to eq(12)
-      expect(@pass.generate(30).size).to eq(30)
-    end
-
-    it "文字数を指定しない場合は#{Pass::DEFAULT_PASSWORD_LENGTH}文字であること" do
-      expect(@pass.generate.size).to eq(Pass::DEFAULT_PASSWORD_LENGTH)
-    end
-
-    it "57文字以上のパスワードを生成できること" do
-      expect(@pass.generate(57).size).to eq(57)
-      expect(@pass.generate(200).size).to eq(200)
-    end
-  end
-
-  describe "特定文字が含まれること含まれないこと" do
-    it "見間違えやすい文字列が含まれないこと" do
-      exclude_characters = %w[l o I O 1]
-      50.times do
-        expect((@pass.generate =~ /[#{exclude_characters.join}]/)).to be_nil
       end
     end
   end
