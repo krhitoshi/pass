@@ -72,13 +72,13 @@ RSpec.describe Pass do
         expect(result.size).to eq(LONG_ENOUGH_LENGTH)
       end
     end
-  end
 
-  describe "例外の発生" do
-    it "#{Pass::MIN_PASSWORD_LENGTH-1}以下の文字数を指定すると例外を発生すること" do
-      [(Pass::MIN_PASSWORD_LENGTH-1) , 0, -10].each do |num|
-        pass = Pass.new(length: num)
-        expect { pass.generate }.to raise_error(Pass::Error)
+    context "with password length less than #{Pass::MIN_PASSWORD_LENGTH}" do
+      it "raises Pass::Error" do
+        [(Pass::MIN_PASSWORD_LENGTH - 1), 0, -10].each do |num|
+          pass = Pass.new(length: num)
+          expect { pass.generate }.to raise_error(Pass::Error)
+        end
       end
     end
   end
