@@ -19,9 +19,15 @@ class Pass
 
     list += SYMBOL_CHARS if @options[:symbols]
 
-    list -= @options[:exclude].split(//) if @options[:exclude]
+    list -= exclude_char_list
 
-    list - AMBIGUOUS_CHARS
+    list
+  end
+
+  def exclude_char_list
+    list = AMBIGUOUS_CHARS
+    list += @options[:exclude].split(//) if @options[:exclude]
+    list
   end
 
   def generate(length = DEFAULT_PASSWORD_LENGTH)
