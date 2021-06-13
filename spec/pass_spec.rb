@@ -26,7 +26,9 @@ RSpec.describe Pass do
 
     context "with long enough password length argument" do
       it "generates a password not including ambiguous characters" do
-        expect(@pass.generate(LONG_ENOUGH_LENGTH)).not_to match(AMBIGUOUS_CHARS_REGEXP)
+        result = @pass.generate(LONG_ENOUGH_LENGTH)
+        expect(result).not_to match(AMBIGUOUS_CHARS_REGEXP)
+        expect(result.size).to eq(LONG_ENOUGH_LENGTH)
       end
     end
 
@@ -36,7 +38,9 @@ RSpec.describe Pass do
       end
 
       it "generates a password not including any symbols" do
-        expect(@pass.generate(LONG_ENOUGH_LENGTH)).not_to match(SYMBOL_CHARS_REGEXP)
+        result = @pass.generate(LONG_ENOUGH_LENGTH)
+        expect(result).not_to match(SYMBOL_CHARS_REGEXP)
+        expect(result.size).to eq(LONG_ENOUGH_LENGTH)
       end
     end
 
@@ -48,10 +52,12 @@ RSpec.describe Pass do
     end
 
     context "with :exclude option" do
-      it "generates a password including symbols" do
+      it "generates a password not including specified characters" do
         list = 'ABCDEFGHabcdefgh'
         pass = Pass.new(exclude: 'ABCDEFGHabcdefgh')
-        expect(pass.generate(LONG_ENOUGH_LENGTH)).not_to match(chars_regexp(list))
+        result = pass.generate(LONG_ENOUGH_LENGTH)
+        expect(result).not_to match(chars_regexp(list))
+        expect(result.size).to eq(LONG_ENOUGH_LENGTH)
       end
     end
   end
