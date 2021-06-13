@@ -27,7 +27,7 @@ class Pass
 
   def exclude_char_list
     list = AMBIGUOUS_CHARS
-    list += @options[:exclude].split(//) if @options[:exclude]
+    list += @options[:exclude].split(//).sort.uniq if @options[:exclude]
     list
   end
 
