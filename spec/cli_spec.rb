@@ -10,10 +10,12 @@ RSpec.describe Pass::CLI do
   describe "コマンド用メソッド" do
     before do
       $stdout = StringIO.new
+      $stderr = StringIO.new
     end
 
     after do
       $stdout = STDOUT
+      $stderr = STDERR
     end
 
     it "オプション無しで1個のパスワードが返ってくること" do
@@ -44,8 +46,8 @@ RSpec.describe Pass::CLI do
       end
     end
 
-    it "指定順序が変わっても-cで文字数指定ができること" do
-      argv = %w[-c 16 3] # 16文字 3パスワード
+    it "指定順序が変わっても-lで文字数指定ができること" do
+      argv = %w[-l 16 3] # 16文字 3パスワード
       expect { @cli.exec(argv) }.to raise_error(SystemExit)
       passwords = $stdout.string.chomp.split("\n")
       expect(passwords.size).to eq(3)
@@ -62,6 +64,14 @@ RSpec.describe Pass::CLI do
     it "-hでヘルプ表示をするとSystemExitすること" do
       argv = %w[-h]
       expect { @cli.exec(argv) }.to raise_error(SystemExit)
+    end
+
+    context "with non-integer argument for the number of passwords" do
+      it "displays an error" do
+        argv = ['wrong_arg']
+        expect { @cli.exec(argv) }.to raise_error(SystemExit)
+        expect($stderr.string).to match(/the option must be an integer/)
+      end
     end
   end
 end
