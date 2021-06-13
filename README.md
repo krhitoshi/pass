@@ -17,7 +17,9 @@ The first step is to install the gem
 
 ## Usage
 
-You can run Pass to generate one random password. A generated password has 12 characters with more than one upper case letter, lower case letter, and numeric character.
+You can run 'pass' to generate one random password.
+Generated passwords have 20 characters and does not include ambiguous characters ``l o I O 1 " ' ` |``.
+As default, a password consists of upper case letters, lower case letters, and numbers.
 
 ```
   pass
@@ -29,17 +31,34 @@ If you need more passwords, you can specify the number of passwords.
   pass 12
 ```
 
-You can specify the password length by -c option.
+You can specify the password length with -l or --length option.
 
 ```
-  pass -c 30
+  pass -l 30
+  pass --length 50
+```
+
+You can use -s or --symbols option to include symbols in passwords.
+
+```
+  pass -s
+  pass --symbols
+```
+
+You can specify certain characters you don't want to put in passwords with -e or --exclude option.
+
+```
+  pass -e 'ABCD678'
+  pass --symbols --exclude '*[]{}/\'
 ```
 
 ## Options
 
 ```
-  -c NUM                           specify password length
-  -s                               include symbols
+  -c [NUMBER]                      (deprecated) specify password length
+  -l, --length [NUMBER]            specify password length
+  -s, --symbols                    include symbols
+  -e, --exclude [CHARACTERS]       exclude characters
   -v, --version                    show version
 ```
 
