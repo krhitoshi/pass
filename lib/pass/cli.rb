@@ -18,6 +18,10 @@ class Pass
         options[:symbols] = true
       end
 
+      opts.on('-e', '--exclude [CHARACTERS]', 'exclude characters') do |value|
+        options[:exclude] = value
+      end
+
       opts.on_tail('-v', '--version', 'show version') do
         puts "pass #{Pass::VERSION}"
         exit 0
