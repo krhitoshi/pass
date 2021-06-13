@@ -11,7 +11,8 @@ class Pass
   class Error < StandardError; end
 
   def initialize(**options)
-    @options = options
+    @options = { length: DEFAULT_PASSWORD_LENGTH }
+    @options.update(options)
   end
 
   def char_list
@@ -30,7 +31,9 @@ class Pass
     list
   end
 
-  def generate(length = DEFAULT_PASSWORD_LENGTH)
+  def generate
+    length = @options[:length]
+
     if length < MIN_PASSWORD_LENGTH
       raise Pass::Error,
             "Invalid Argument: password length must be more than #{MIN_PASSWORD_LENGTH}."
@@ -49,7 +52,7 @@ class Pass
   end
 
   def self.generate(num = DEFAULT_PASSWORD_LENGTH)
-    new.generate(num)
+    new(length: num).generate
   end
 
   private

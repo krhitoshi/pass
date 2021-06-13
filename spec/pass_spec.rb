@@ -14,19 +14,23 @@ RSpec.describe Pass do
       end
 
       it "generates a password that has the specified length" do
-        expect(@pass.generate(5).size).to eq(5)
-        expect(@pass.generate(12).size).to eq(12)
-        expect(@pass.generate(30).size).to eq(30)
+        [5, 12, 30].each do |num|
+          pass = Pass.new(length: num)
+          expect(pass.generate.size).to eq(num)
+        end
       end
 
       it "generates a password longer than #{@char_list_size} characters" do
-        expect(@pass.generate(@char_list_size + 1).size).to eq(@char_list_size + 1)
+        num = @char_list_size + 1
+        pass = Pass.new(length: num)
+        expect(pass.generate.size).to eq(num)
       end
     end
 
     context "with long enough password length argument" do
       it "generates a password not including ambiguous characters" do
-        result = @pass.generate(LONG_ENOUGH_LENGTH)
+        pass = Pass.new(length: LONG_ENOUGH_LENGTH)
+        result = pass.generate
         expect(result).not_to match(AMBIGUOUS_CHARS_REGEXP)
         expect(result.size).to eq(LONG_ENOUGH_LENGTH)
       end
@@ -38,24 +42,32 @@ RSpec.describe Pass do
       end
 
       it "generates a password not including any symbols" do
-        result = @pass.generate(LONG_ENOUGH_LENGTH)
+        pass = Pass.new(length: LONG_ENOUGH_LENGTH)
+        result = pass.generate
         expect(result).not_to match(SYMBOL_CHARS_REGEXP)
         expect(result.size).to eq(LONG_ENOUGH_LENGTH)
       end
     end
 
+    context "with :length option" do
+      it "generates a password that has the specified length" do
+        pass = Pass.new(length: 30)
+        expect(pass.generate.size).to eq(30)
+      end
+    end
+
     context "with :symbols option" do
       it "generates a password including symbols" do
-        pass = Pass.new(symbols: true)
-        expect(pass.generate(LONG_ENOUGH_LENGTH)).to match(SYMBOL_CHARS_REGEXP)
+        pass = Pass.new(symbols: true, length: LONG_ENOUGH_LENGTH)
+        expect(pass.generate).to match(SYMBOL_CHARS_REGEXP)
       end
     end
 
     context "with :exclude option" do
       it "generates a password not including specified characters" do
         list = 'ABCDEFGHabcdefgh'
-        pass = Pass.new(exclude: 'ABCDEFGHabcdefgh')
-        result = pass.generate(LONG_ENOUGH_LENGTH)
+        pass = Pass.new(exclude: 'ABCDEFGHabcdefgh', length: LONG_ENOUGH_LENGTH)
+        result = pass.generate
         expect(result).not_to match(chars_regexp(list))
         expect(result.size).to eq(LONG_ENOUGH_LENGTH)
       end
@@ -64,9 +76,10 @@ RSpec.describe Pass do
 
   describe "例外の発生" do
     it "#{Pass::MIN_PASSWORD_LENGTH-1}以下の文字数を指定すると例外を発生すること" do
-      expect { @pass.generate(Pass::MIN_PASSWORD_LENGTH-1) }.to raise_error(Pass::Error)
-      expect { @pass.generate(0) }.to raise_error(Pass::Error)
-      expect { @pass.generate(-10) }.to raise_error(Pass::Error)
+      [(Pass::MIN_PASSWORD_LENGTH-1) , 0, -10].each do |num|
+        pass = Pass.new(length: num)
+        expect { pass.generate }.to raise_error(Pass::Error)
+      end
     end
   end
 

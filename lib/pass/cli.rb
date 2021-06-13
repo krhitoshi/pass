@@ -8,16 +8,16 @@ class Pass
 
     def exec(argv)
       options = {}
-      password_length = Pass::DEFAULT_PASSWORD_LENGTH
+      options[:length] = Pass::DEFAULT_PASSWORD_LENGTH
 
       opts = OptionParser.new
 
       opts.on('-c [NUMBER]', '(deprecated) specify password length') do |value|
-        password_length = option_to_i(value)
+        options[:length] = option_to_i(value)
       end
 
       opts.on('-l', '--length [NUMBER]', 'specify password length') do |value|
-        password_length = option_to_i(value)
+        options[:length] = option_to_i(value)
       end
 
       opts.on('-s', '--symbols', 'include symbols') do |value|
@@ -46,7 +46,7 @@ class Pass
         pass = Pass.new(**options)
 
         num_passwords.times do
-          puts pass.generate(password_length)
+          puts pass.generate
         end
       rescue Pass::Error, Pass::CLI::Error, OptionParser::ParseError => e
         abort "Error: #{e.message}"
