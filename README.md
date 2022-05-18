@@ -17,24 +17,35 @@ $ gem install pass
 
 ## Usage
 
-You can run 'pass' to generate one random password.
-Generated passwords have 20 characters and does not include ambiguous characters ``l o I O 1 " ' ` |``.
+You can just run 'pass' to get one random password.
+Every time you run it, you will get a different password.
+
+Each password has 20 characters and does not include ambiguous characters ``l o I O 1 " ' ` |``.
 As default, a password consists of upper case letters, lower case letters, and numbers.
 
 ```
 $ pass
+phxeaYZm7wUF8ACRjuSP
+
+$ pass
+Vm8ukJsPfeZXvCASUYTM
 ```
 
 If you need more passwords, you can specify the number of passwords.
 
 ```
-$ pass 12
+$ pass 3
+jMtfmQhXbFSJ2TpVrBey
+48UKdpNLf6sxatmq2JzP
+5JYuhCbSHqZatVwA8B97
 ```
 
 You can specify the password length with -l or --length option.
 
 ```
 $ pass -l 30
+7wkxqiWXSYpPLnNsAyTeuU59dgmJFC
+
 $ pass --length 50
 ```
 
@@ -42,6 +53,8 @@ You can use -s or --symbols option to include symbols in passwords.
 
 ```
 $ pass -s
+uV=#v3,Z9Hd^$B?DKt%P
+
 $ pass --symbols
 ```
 
